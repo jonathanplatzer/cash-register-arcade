@@ -8,7 +8,7 @@ Cash Register Arcade is a simple HTML5/Javascript Jump'n'Run.
 2. Clone this repo and change into the project directory
 3. Initialize the repo with `git flow init`
 4. Pull the `develop` branch with `git pull origin develop`
-5. Track the `develop` branch with `git branch --set-­ups­tream develop origin­/de­velop`
+5. Track the `develop` branch with `git branch --track develop origin/develop`
 6. Install nodejs and npm
 7. Run `npm install` in the project directory to install the last node-modules
 8. ???
