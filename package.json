@@ -1,0 +1,15 @@
+{
+  "name": "cash-register-arcade",
+  "description": "A HTML5/Javascript game",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Jonathan Platzer",
+  "devDependencies": {
+    "grunt-jsdoc": "^0.5.7",
+    "lineman": "~0.34.0"
+  },
+  "scripts": {
+    "start": "lineman run",
+    "test": "lineman spec-ci"
+  }
+}
