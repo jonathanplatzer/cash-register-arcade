@@ -22,7 +22,7 @@ State.Preloader.prototype = {
     update: function() {
         if(!this.ready) {
             this.ready = true;
-            this.state.start('MainMenu');
+            this.state.start('mainMenu');
         }
     }
 };
