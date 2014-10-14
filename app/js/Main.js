@@ -14,9 +14,9 @@
         game.state.add('boot', CashRegisterArcade.State.Boot);
         game.state.add('preloader', CashRegisterArcade.State.Preloader);
         game.state.add('mainMenu', CashRegisterArcade.State.MainMenu);
-        game.state.add('optionMenu', CashRegisterArcade.OptionMenu);
-        game.state.add('highscore', CashRegisterArcade.Highscore);
-        game.state.add('play', CashRegisterArcade.Play);
+        game.state.add('optionMenu', CashRegisterArcade.State.OptionMenu);
+        game.state.add('highscore', CashRegisterArcade.State.Highscore);
+        game.state.add('play', CashRegisterArcade.State.Play);
 
         // Start
         game.state.start('boot');

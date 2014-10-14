@@ -17,5 +17,7 @@ State.MainMenu.prototype = {
     create: function() {
         this.game.stage.backgroundColor = 0xff0000;
     },
-    update: function() {}
+    update: function() {
+        this.state.start()
+    }
 };
