@@ -22,18 +22,21 @@ State.OptionMenu.prototype = {
     },
     create: function() {
         buttons=4;
-        this.button_theme=this.game.add.button(this.game.width/10,this.game.height/(2*(buttons+2)),'button_theme',this.toggleTheme);
+        space_height=this.game.height/(3*(buttons)+1);
+        this.button_theme=this.game.add.button(this.game.width/10,1*space_height,'button_theme',this.toggleTheme);
         this.button_theme.width=this.game.width/(10)*8;
-        this.button_theme.height=this.game.height/(buttons+2);
-        this.button_music=this.game.add.button(this.game.width/10,this.game.height/(2*(buttons+2))*4,'button_music',this.toggleMusic);
+        this.button_theme.height=space_height*2;
+        console.log(this.button_theme.height);
+        console.log(this.button_theme.y);
+        this.button_music=this.game.add.button(this.game.width/10,4*space_height,'button_music',this.toggleMusic);
         this.button_music.width=this.game.width/10*8;
-        this.button_music.height=this.game.height/(buttons+2);
-        this.button_sound=this.game.add.button(this.game.width/10,this.game.height/(2*(buttons+2))*7,'button_sound',this.toggleSfx);
+        this.button_music.height=space_height*2;
+        this.button_sound=this.game.add.button(this.game.width/10,7*space_height,'button_sound',this.toggleSfx);
         this.button_sound.width=this.game.width/10*8;
-        this.button_sound.height=this.game.height/(buttons+2);
-        this.button_back=this.game.add.button(this.game.width/10,this.game.height/(2*(buttons+2))*10,'button_back',this.toMainMenu);
+        this.button_sound.height=space_height*2;
+        this.button_back=this.game.add.button(this.game.width/10,10*space_height,'button_back',this.toMainMenu);
         this.button_back.width=this.game.width/10*8;
-        this.button_back.height=this.game.height/(buttons+2);
+        this.button_back.height=space_height*2;
     },
     update: function() {},
     toggleMusic: function()
@@ -68,7 +71,7 @@ State.OptionMenu.prototype = {
     },
     toMainMenu: function()
     {
-        
+
         this.game.state.start('mainMenu');
     }
 };
