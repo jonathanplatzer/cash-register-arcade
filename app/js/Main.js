@@ -8,7 +8,7 @@
      */
     function main() {
         // Create the main game object
-        var game = new Phaser.Game(960, 640, Phaser.AUTO, 'game');
+        var game = new Phaser.Game(1280, 720, Phaser.AUTO, 'game');
 
         // Add the different states to the game
         game.state.add('boot', CashRegisterArcade.State.Boot);
