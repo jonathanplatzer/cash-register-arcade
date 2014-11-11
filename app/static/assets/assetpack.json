@@ -1,0 +1,37 @@
+{ 
+    "preload": [
+        {
+            "type": "image",
+            "key": "loading",
+            "url": "assets/img/loading.png",
+            "overwrite": false
+        }
+    ],
+    "mainMenu": [
+        {
+            "type": "image",
+            "key": "buttonPlay",
+            "url": "assets/img/buttonPlay.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "buttonOptionen",
+            "url": "assets/img/buttonOptionen.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "buttonHighscore",
+            "url": "assets/img/buttonHighscore.png",
+            "overwrite": false
+        }
+    ],
+    "meta": {
+        "generated": "1415715417062",
+        "app": "Kate",
+        "version": "3.13.3",
+        "url": "http://www.kde.org",
+        "copyright": "2000–2013, the authors of Kate"
+    }
+}
