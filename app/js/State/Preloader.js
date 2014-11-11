@@ -11,28 +11,26 @@ var State = namespace('CashRegisterArcade.State');
  * @classdesc State for preloading the assets of the game
  * @memberOf CashRegisterArcade.State
  */
-State.Preloader = function(game) {
-    this.ready = false;
-};
+State.Preloader = function(game) {};
 
 State.Preloader.prototype = {
     preload: function() {
-        console.log("Preloader: Preload");
         this.load.image('loading','/assets/img/loading.png');
     },
     create: function() {
         this.loadingImage = this.game.add.image(0, 0, 'loading');
         this.loadingImage.x = this.game.width / 2 - this.loadingImage.width / 2;
         this.loadingImage.y = this.game.height / 2 - this.loadingImage.height / 2;
-        
-        game.time.events.add(Phaser.Timer.SECOND * 2, testComplete, this);
+
+        this.loader = new Phaser.Loader(this.game);
+        this.loader.onLoadComplete.addOnce(this.loadCompleted, this);
+
+        this.loader.pack('mainMenu','/assets/assetpack.json', null, this);
+
+        this.loader.start();
     },
-    testComplete: function() {
-        this.ready = true;
+    loadCompleted: function(key) {
+        this.state.start('mainMenu');
     },
-    update: function() {
-        if (this.ready) {
-            this.state.start('mainMenu');
-        }
-    }
+    update: function() {}
 };
