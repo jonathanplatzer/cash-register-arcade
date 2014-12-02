@@ -26,8 +26,6 @@ State.Play.prototype = {
         player.body.collideWorldBounds = true;
         //player.body.setSize(20, 32, 5, 16);
         //this.game.camera.follow(player);
-        cursors = this.game.input.keyboard.createCursorKeys();
-
         player.accelerationX=0;
         player.accelerationY=0;
         acceleration=20;
@@ -35,6 +33,11 @@ State.Play.prototype = {
         worldVelocity=-15;
         jumpSpeed=-600;
         player.maxVelocity=75;
+
+        cursors = this.game.input.keyboard.createCursorKeys();
+
+        keyEsc = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+        keyEsc.onDown.add(this.backToMain, this);
     },
     update: function() {
         player.accelerationX=0;
@@ -70,6 +73,15 @@ State.Play.prototype = {
         {
             player.body.velocity.y = jumpSpeed;
         }
-        player.body.velocity.x=player.body.velocity.x+player.accelerationX
+        player.body.velocity.x=player.body.velocity.x+player.accelerationX;
+        if(player.body.x<1){
+
+            /*Do something usefull*/
+            console.log("DEATH");
+
+        }
+    },
+    backToMain:function(){
+        this.game.state.start('mainMenu');
     }
 };
