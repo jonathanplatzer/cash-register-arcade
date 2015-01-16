@@ -21,6 +21,8 @@ State.OptionMenu.prototype = {
         this.game.load.image('button_back','/assets/img/back.png');
     },
     create: function() {
+		this.game.stage.backgroundColor = 0xffffff;
+		
         buttons=4;
         space_height=this.game.height/(3*(buttons)+1);
         this.button_theme=this.game.add.button(this.game.width/10,1*space_height,'button_theme',this.toggleTheme);
