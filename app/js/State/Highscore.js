@@ -22,8 +22,8 @@ State.Highscore.prototype = {
 		this.game.load.image('buttonDown','/assets/img/buttonHighscoresDown.png');
 	},
     create: function() {
-		this.game.stage.backgroundColor = 0xffffff;
-		
+        this.game.stage.backgroundColor = 0xffffff;
+
 		//Set text style
 		this.style = { font: "40px Arial", fill: "#000000", align: "center" };
 		

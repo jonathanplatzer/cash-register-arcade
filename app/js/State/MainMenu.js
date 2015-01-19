@@ -22,7 +22,7 @@ State.MainMenu.prototype =
         this.game.load.spritesheet('buttonHighscore','/assets/img/buttonHighscore.png', 300, 150);
     },
     create: function() {
-		this.game.add.tileSprite(0, 0, 1280, 720, 'background');
+        this.game.add.tileSprite(0, 0, 1280, 720, 'background');
         this.buttonPlay = this.game.add.button(this.game.world.centerX, this.game.world.centerY, 'buttonPlay', this.startGame, this, 1, 0);
         this.buttonPlay.anchor.setTo(0.5, 2.0);
         this.buttonOptionen = this.game.add.button(this.game.world.centerX, this.game.world.centerY, 'buttonOptionen', this.startOptions, this, 1, 0);
