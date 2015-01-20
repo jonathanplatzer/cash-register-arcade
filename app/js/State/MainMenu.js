@@ -14,12 +14,7 @@ State.MainMenu = function(game) {};
 
 State.MainMenu.prototype = 
 {
-    preload: function() 
-    {
-		//this.load.image('background','assets/img/backgroundMainMenu.png');
-        //this.game.load.spritesheet('buttonPlay','assets/img/buttonPlay.png', 300, 150);
-        //this.game.load.spritesheet('buttonOptionen','assets/img/buttonOptionen.png', 300, 150);
-        //this.game.load.spritesheet('buttonHighscore','assets/img/buttonHighscore.png', 300, 150);
+    preload: function() {
     },
     create: function() {
         this.game.add.tileSprite(0, 0, 1280, 720, 'background');
