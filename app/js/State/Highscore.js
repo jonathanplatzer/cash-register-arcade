@@ -17,9 +17,9 @@ State.Highscore.prototype = {
 	obergrenze: 9,
 	
     preload: function() {
-		this.game.load.image('buttonBack','/assets/img/buttonHighscoresBack.png');
-		this.game.load.image('buttonUp','/assets/img/buttonHighscoresUp.png');
-		this.game.load.image('buttonDown','/assets/img/buttonHighscoresDown.png');
+		//this.game.load.image('buttonBack','assets/img/buttonHighscoresBack.png');
+		//this.game.load.image('buttonUp','assets/img/buttonHighscoresUp.png');
+		//this.game.load.image('buttonDown','assets/img/buttonHighscoresDown.png');
 	},
     create: function() {
         this.game.stage.backgroundColor = 0xffffff;

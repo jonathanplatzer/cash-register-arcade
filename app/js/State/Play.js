@@ -13,17 +13,20 @@ var State = namespace('CashRegisterArcade.State');
 State.Play = function(game) {};
 State.Play.prototype = {
     preload: function() {
-        this.load.image('background','/assets/img/backgroundPlay.png');
-        this.game.load.image('player', '/assets/img/player_weich.png');
-        this.game.load.image('register', '/assets/img/register_small_weich.png');
+        //this.load.image('background','assets/img/backgroundPlay.png');
+        //this.game.load.image('player', 'assets/img/player_weich.png');
+        //this.game.load.image('register', 'assets/img/register.png');
+        //this.game.load.image('kassamain', 'assets/img/kassaMainPart.png');
     },
     create: function() {
         this.game.add.tileSprite(0, 0, 1280, 720, 'background');
-        this.register = this.game.add.sprite(200, this.game.height, 'register');
+        this.game.add.tileSprite(0, 0, 1280, 720, 'kassamain');
+        this.register = this.game.add.sprite(150, this.game.height - 72, 'register');
         this.register.anchor.setTo(0, 1);
+        this.register.scale.setTo(0.2);
         
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        this.game.stage.backgroundColor = '#000000';
+        //this.game.stage.backgroundColor = '#000000';
         this.game.physics.arcade.gravity.y = 500;
         player = this.game.add.sprite(1000, 500, 'player');
         player.scale.setTo(0.1875);

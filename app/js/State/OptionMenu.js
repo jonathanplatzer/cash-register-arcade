@@ -15,15 +15,13 @@ State.OptionMenu = function(game) {
 
 State.OptionMenu.prototype = {
     preload: function() {
-        this.game.load.image('button_theme','/assets/img/theme.png');
-        this.game.load.image('button_music','/assets/img/music.png');
-        this.game.load.image('button_sound','/assets/img/sound.png');
-        this.game.load.image('button_back','/assets/img/back.png');
+        //this.game.load.image('button_theme','/assets/img/theme.png');
+        //this.game.load.image('button_music','/assets/img/music.png');
+        //this.game.load.image('button_sound','/assets/img/sound.png');
+        //this.game.load.image('button_back','/assets/img/back.png');
     },
     create: function() {
-        this.game.stage.backgroundColor = 0xffffff;
-
-        buttons=4;
+        /*buttons=4;
         space_height=this.game.height/(3*(buttons)+1);
         this.button_theme=this.game.add.button(this.game.width/10,1*space_height,'button_theme',this.toggleTheme);
         this.button_theme.width=this.game.width/(10)*8;
@@ -38,7 +36,17 @@ State.OptionMenu.prototype = {
         this.button_sound.height=space_height*2;
         this.button_back=this.game.add.button(this.game.width/10,10*space_height,'button_back',this.toMainMenu);
         this.button_back.width=this.game.width/10*8;
-        this.button_back.height=space_height*2;
+        this.button_back.height=space_height*2;*/
+        
+        this.button_theme = this.game.add.button(this.game.world.centerX, this.game.world.centerY - 180, 'button_theme',this.toggleTheme, this, 1, 0);
+        this.button_music = this.game.add.button(this.game.world.centerX, this.game.world.centerY - 10, 'button_music',this.toggleMusic, this, 1, 0);
+        this.button_sound = this.game.add.button(this.game.world.centerX, this.game.world.centerY + 10, 'button_sound',this.toggleSfx, this, 1, 0);
+        this.button_back = this.game.add.button(this.game.world.centerX, this.game.world.centerY + 180, 'button_back',this.toMainMenu, this, 1, 0);
+        
+        this.button_theme.anchor.setTo(0.5, 1);
+        this.button_music.anchor.setTo(0.5, 1);
+        this.button_sound.anchor.setTo(0.5, 0);
+        this.button_back.anchor.setTo(0.5, 0);
     },
     update: function() {},
     toggleMusic: function()
