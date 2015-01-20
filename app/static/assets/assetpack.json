@@ -94,6 +94,14 @@
         },
         {
             "type": "spritesheet",
+            "key": "buttonVoiceIndicator",
+            "url": "assets/img/buttonVoiceIndicator.png",
+            "overwrite": false,
+            "frameWidth": 150,
+            "frameHeight": 150
+        },
+        {
+            "type": "spritesheet",
             "key": "button_theme",
             "url": "assets/img/buttonTheme.png",
             "overwrite": false,
@@ -111,7 +119,7 @@
         {
             "type": "spritesheet",
             "key": "button_sound",
-            "url": "assets/img/buttonSound.png",
+            "url": "assets/img/buttonSfx.png",
             "overwrite": false,
             "frameWidth": 300,
             "frameHeight": 150
