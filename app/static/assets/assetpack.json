@@ -1,4 +1,4 @@
-{ 
+{
     "preload": [
         {
             "type": "image",
@@ -10,21 +10,119 @@
     "mainMenu": [
         {
             "type": "image",
+            "key": "background",
+            "url": "assets/img/backgroundMainMenu.png",
+            "overwrite": false
+        },
+        {
+            "type": "spritesheet",
             "key": "buttonPlay",
             "url": "assets/img/buttonPlay.png",
-            "overwrite": false
+            "overwrite": false,
+            "frameWidth": 300,
+            "frameHeight": 150
         },
         {
-            "type": "image",
+            "type": "spritesheet",
             "key": "buttonOptionen",
             "url": "assets/img/buttonOptionen.png",
+            "overwrite": false,
+            "frameWidth": 300,
+            "frameHeight": 150
+        },
+        {
+            "type": "spritesheet",
+            "key": "buttonHighscore",
+            "url": "assets/img/buttonHighscore.png",
+            "overwrite": false,
+            "frameWidth": 300,
+            "frameHeight": 150
+        }
+    ],
+    "play": [
+        {
+            "type": "image",
+            "key": "background",
+            "url": "assets/img/backgroundPlay.png",
             "overwrite": false
         },
         {
             "type": "image",
-            "key": "buttonHighscore",
-            "url": "assets/img/buttonHighscore.png",
+            "key": "player",
+            "url": "assets/img/player_weich.png",
             "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "register",
+            "url": "assets/img/register.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "kassamain",
+            "url": "assets/img/kassaMainPart.png",
+            "overwrite": false
+        }
+    ],
+    "highscore": [
+        {
+            "type": "image",
+            "key": "buttonBack",
+            "url": "assets/img/buttonHighscoresBack.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "buttonUp",
+            "url": "assets/img/buttonHighscoresUp.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "buttonDown",
+            "url": "assets/img/buttonHighscoresDown.png",
+            "overwrite": false
+        }
+    ],
+    "optionMenu": [
+        {
+            "type": "image",
+            "key": "background",
+            "url": "assets/img/backgroundOptionMenu.png",
+            "overwrite": false
+        },
+        {
+            "type": "spritesheet",
+            "key": "button_theme",
+            "url": "assets/img/buttonTheme.png",
+            "overwrite": false,
+            "frameWidth": 300,
+            "frameHeight": 150
+        },
+        {
+            "type": "spritesheet",
+            "key": "button_music",
+            "url": "assets/img/buttonMusic.png",
+            "overwrite": false,
+            "frameWidth": 300,
+            "frameHeight": 150
+        },
+        {
+            "type": "spritesheet",
+            "key": "button_sound",
+            "url": "assets/img/buttonSound.png",
+            "overwrite": false,
+            "frameWidth": 300,
+            "frameHeight": 150
+        },
+        {
+            "type": "spritesheet",
+            "key": "button_back",
+            "url": "assets/img/buttonBack.png",
+            "overwrite": false,
+            "frameWidth": 300,
+            "frameHeight": 150
         }
     ],
     "meta": {
