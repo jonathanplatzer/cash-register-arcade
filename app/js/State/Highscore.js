@@ -25,11 +25,11 @@ State.Highscore.prototype = {
 		this.style = { font: "40px Arial", fill: "#000000", align: "center" };
 		
 		//Add UI elements
-		this.buttonBack = this.game.add.button(30, this.game.world.height - 30, 'buttonBack', this.onBackToMain , this);
+		this.buttonBack = this.game.add.button(30, this.game.world.height - 30, 'buttonBack', this.onBackToMain , this, 1, 0);
 		this.buttonBack.anchor.setTo(0, 1);
-		this.buttonUp = this.game.add.button(30, 30, 'buttonUp', this.onHighscoreUp , this);
+		this.buttonUp = this.game.add.button(30, 30, 'buttonUp', this.onHighscoreUp , this, 1 ,0);
 		this.buttonUp.anchor.setTo(0, 0);
-		this.buttonDown = this.game.add.button(30, 210, 'buttonDown', this.onHighscoreDown , this);
+		this.buttonDown = this.game.add.button(30, 210, 'buttonDown', this.onHighscoreDown , this, 1, 0);
 		this.buttonDown.anchor.setTo(0, 0);
 		this.highscoreHeaderRank = this.game.add.text(240, 40, "Platz", this.style);
 		this.highscoreHeaderPlayer = this.game.add.text(380, 40, "Spielername", this.style);

@@ -15,6 +15,10 @@ State.MainMenu = function(game) {};
 State.MainMenu.prototype = 
 {
     preload: function() {
+        if(this.game.music && !this.game.musicRunning) {
+            this.game.backgroundmusic.play();
+            this.game.musicRunning = true;
+        }
     },
     create: function() {
         this.game.add.tileSprite(0, 0, 1280, 720, 'background');

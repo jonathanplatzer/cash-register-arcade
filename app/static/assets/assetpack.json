@@ -67,22 +67,28 @@
     ],
     "highscore": [
         {
-            "type": "image",
+            "type": "spritesheet",
             "key": "buttonBack",
             "url": "assets/img/buttonHighscoresBack.png",
-            "overwrite": false
+            "overwrite": false,
+            "frameWidth": 150,
+            "frameHeight": 150
         },
         {
-            "type": "image",
+            "type": "spritesheet",
             "key": "buttonUp",
             "url": "assets/img/buttonHighscoresUp.png",
-            "overwrite": false
+            "overwrite": false,
+            "frameWidth": 150,
+            "frameHeight": 150
         },
         {
-            "type": "image",
+            "type": "spritesheet",
             "key": "buttonDown",
             "url": "assets/img/buttonHighscoresDown.png",
-            "overwrite": false
+            "overwrite": false,
+            "frameWidth": 150,
+            "frameHeight": 150
         }
     ],
     "optionMenu": [
