@@ -26,7 +26,7 @@ State.Play.prototype = {
         this.MAX_SPEED = 750;
         this.ACCELERATION = 1500;
         this.FORCE = 500;
-        this.DRAG = 200;
+        this.DRAG = 800;
         this.GRAVITY = 2600;
         this.JUMP_SPEED = -700;
 
