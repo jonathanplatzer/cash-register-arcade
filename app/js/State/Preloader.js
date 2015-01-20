@@ -29,7 +29,7 @@ State.Preloader.prototype = {
         this.loader.pack('play','/assets/assetpack.json', null, this);
         this.loader.pack('highscore','/assets/assetpack.json', null, this);
         this.loader.pack('optionMenu','/assets/assetpack.json', null, this);
-        
+
         this.loader.start();
     },
     loadCompleted: function(key) {
