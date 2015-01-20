@@ -14,15 +14,14 @@ State.MainMenu = function(game) {};
 
 State.MainMenu.prototype = 
 {
-    preload: function() 
-    {
-		//this.load.image('background','assets/img/backgroundMainMenu.png');
-        //this.game.load.spritesheet('buttonPlay','assets/img/buttonPlay.png', 300, 150);
-        //this.game.load.spritesheet('buttonOptionen','assets/img/buttonOptionen.png', 300, 150);
-        //this.game.load.spritesheet('buttonHighscore','assets/img/buttonHighscore.png', 300, 150);
+    preload: function() {
+        if(this.game.music && !this.game.musicRunning) {
+            this.game.backgroundmusic.play();
+            this.game.musicRunning = true;
+        }
     },
     create: function() {
-        this.game.add.tileSprite(0, 0, 1280, 720, 'background');
+        this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundMainMenu');
         this.buttonPlay = this.game.add.button(this.game.world.centerX, this.game.world.centerY, 'buttonPlay', this.startGame, this, 1, 0);
         this.buttonPlay.anchor.setTo(0.5, 2.0);
         this.buttonOptionen = this.game.add.button(this.game.world.centerX, this.game.world.centerY, 'buttonOptionen', this.startOptions, this, 1, 0);
@@ -36,17 +35,14 @@ State.MainMenu.prototype =
     },
     startGame: function(pointer) 
     {
-        console.log('button click');
         this.state.start('play');
     },
     startOptions: function(pointer) 
     {
-        console.log('button click');
         this.state.start('optionMenu');
     },
     startHighscore: function(pointer) 
     {
-        console.log('button click');
         this.state.start('highscore');
     }
 };
