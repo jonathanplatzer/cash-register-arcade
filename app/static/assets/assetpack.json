@@ -10,7 +10,7 @@
     "mainMenu": [
         {
             "type": "image",
-            "key": "background",
+            "key": "backgroundMainMenu",
             "url": "assets/img/backgroundMainMenu.png",
             "overwrite": false
         },
@@ -42,7 +42,7 @@
     "play": [
         {
             "type": "image",
-            "key": "background",
+            "key": "backgroundPlay",
             "url": "assets/img/backgroundPlay.png",
             "overwrite": false
         },
@@ -66,6 +66,12 @@
         }
     ],
     "highscore": [
+        {
+            "type": "image",
+            "key": "backgroundHighscore",
+            "url": "assets/img/backgroundHighscore.png",
+            "overwrite": false
+        },
         {
             "type": "spritesheet",
             "key": "buttonBack",
@@ -94,7 +100,7 @@
     "optionMenu": [
         {
             "type": "image",
-            "key": "background",
+            "key": "backgroundOptionMenu",
             "url": "assets/img/backgroundOptionMenu.png",
             "overwrite": false
         },

@@ -33,7 +33,7 @@ State.Preloader.prototype = {
         
         this.loader.start();
         
-        //Music
+        //Music Init
         this.game.backgroundmusic = this.game.add.audio('backgroundMusic');
         this.game.backgroundmusic.volume = 0.5;
         this.game.backgroundmusic.loop = true;

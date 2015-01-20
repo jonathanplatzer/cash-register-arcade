@@ -30,7 +30,7 @@ State.OptionMenu.prototype = {
         }
     },
     create: function() {
-        this.game.add.tileSprite(0, 0, 1280, 720, 'background');
+        this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundOptionMenu');
         
         this.button_theme = this.game.add.button(this.game.world.centerX, this.game.world.centerY - 180, 'button_theme',this.toggleTheme, this, 1, 0);
         this.button_music = this.game.add.button(this.game.world.centerX, this.game.world.centerY - 10, 'button_music',this.toggleMusic, this, 1, 0);
@@ -54,7 +54,7 @@ State.OptionMenu.prototype = {
         
         if(this.game.music) {
             this.sprite_music_indicator.frame = 0;
-            this.game.backgroundmusic.volume = 1;
+            this.game.backgroundmusic.volume = 0.5;
         }
         else {
             this.sprite_music_indicator.frame = 1;

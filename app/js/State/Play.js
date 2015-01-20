@@ -15,7 +15,7 @@ State.Play.prototype = {
     preload: function() {
     },
     create: function() {
-        this.game.add.tileSprite(0, 0, 1280, 720, 'background');
+        this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundPlay');
         this.game.add.tileSprite(0, 0, 1280, 720, 'kassamain');
         this.register = this.game.add.sprite(150, this.game.height - 72, 'register');
         this.register.anchor.setTo(0, 1);
