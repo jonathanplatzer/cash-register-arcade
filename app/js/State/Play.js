@@ -22,7 +22,7 @@ State.Play.prototype = {
         player = this.game.add.sprite(1000, 500, 'player');
         player.scale.setTo(0.1875);
         this.game.physics.enable(player, Phaser.Physics.ARCADE);
-        player.body.bounce.y = 0.5;
+        player.body.bounce.y = 0.25;
         player.body.collideWorldBounds = true;
         //player.body.setSize(20, 32, 5, 16);
         //this.game.camera.follow(player);
