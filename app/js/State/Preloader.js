@@ -16,6 +16,7 @@ State.Preloader = function(game) {};
 State.Preloader.prototype = {
     preload: function() {
         this.load.image('loading','/assets/img/loading.png');
+        this.load.audio('backgroundMusic', 'assets/sfx/backgroundMusic.ogg');
     },
     create: function() {
         this.loadingImage = this.game.add.image(0, 0, 'loading');
@@ -29,8 +30,16 @@ State.Preloader.prototype = {
         this.loader.pack('play','/assets/assetpack.json', null, this);
         this.loader.pack('highscore','/assets/assetpack.json', null, this);
         this.loader.pack('optionMenu','/assets/assetpack.json', null, this);
-        
+
         this.loader.start();
+        
+        //Music Init
+        this.game.backgroundmusic = this.game.add.audio('backgroundMusic');
+        this.game.backgroundmusic.volume = 0.5;
+        this.game.backgroundmusic.loop = true;
+        this.game.musicRunning = false;
+        this.game.music = true;
+        this.game.sfx = true;
     },
     loadCompleted: function(key) {
         this.state.start('mainMenu');

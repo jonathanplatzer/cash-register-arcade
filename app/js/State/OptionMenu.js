@@ -15,16 +15,28 @@ State.OptionMenu = function(game) {
 
 State.OptionMenu.prototype = {
     preload: function() {
+        //Damit die Sound aus/an buttons beim zurückkehren ins menu richtig dargestellt werden.
+        if(this.game.music) {
+            this.musicFrame = 0;
+        }
+        else {
+            this.musicFrame = 1;
+        }
+        if(this.game.sfx) {
+            this.sfxFrame = 0;
+        }
+        else {
+            this.sfxFrame = 1;
+        }
     },
     create: function() {
-        
-        this.game.add.tileSprite(0, 0, 1280, 720, 'background');
+        this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundOptionMenu');
         
         this.button_theme = this.game.add.button(this.game.world.centerX, this.game.world.centerY - 180, 'button_theme',this.toggleTheme, this, 1, 0);
         this.button_music = this.game.add.button(this.game.world.centerX, this.game.world.centerY - 10, 'button_music',this.toggleMusic, this, 1, 0);
-        this.sprite_music_indicator = this.game.add.sprite(this.game.world.centerX + 180, this.game.world.centerY - 10, 'buttonVoiceIndicator', 0);
+        this.sprite_music_indicator = this.game.add.sprite(this.game.world.centerX + 180, this.game.world.centerY - 10, 'buttonVoiceIndicator', this.musicFrame);
         this.button_sound = this.game.add.button(this.game.world.centerX, this.game.world.centerY + 10, 'button_sound',this.toggleSfx, this, 1, 0);
-        this.sprite_sfx_indicator = this.game.add.sprite(this.game.world.centerX + 180, this.game.world.centerY + 10, 'buttonVoiceIndicator', 0);
+        this.sprite_sfx_indicator = this.game.add.sprite(this.game.world.centerX + 180, this.game.world.centerY + 10, 'buttonVoiceIndicator', this.sfxFrame);
         this.button_back = this.game.add.button(this.game.world.centerX, this.game.world.centerY + 180, 'button_back',this.toMainMenu, this, 1, 0);
         
         this.button_theme.anchor.setTo(0.5, 1);
@@ -42,12 +54,12 @@ State.OptionMenu.prototype = {
         
         if(this.game.music) {
             this.sprite_music_indicator.frame = 0;
+            this.game.backgroundmusic.volume = 0.5;
         }
         else {
             this.sprite_music_indicator.frame = 1;
+            this.game.backgroundmusic.volume = 0;
         }
-        
-        console.log(this.game.music);
     },
     toggleSfx: function()
     {
@@ -59,8 +71,6 @@ State.OptionMenu.prototype = {
         else {
             this.sprite_sfx_indicator.frame = 1;
         }
-        
-        console.log(this.game.sfx);
     },
     toggleTheme: function()
     {
