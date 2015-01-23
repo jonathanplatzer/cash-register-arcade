@@ -31,7 +31,7 @@ State.MainMenu.prototype =
     },
     update: function() 
     {        
-
+        
     },
     startGame: function(pointer) 
     {

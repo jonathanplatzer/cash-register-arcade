@@ -16,26 +16,29 @@ State.Play.prototype = {
     preload: function() {
     },
     create: function() {
-        this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundPlay');
-        this.game.add.tileSprite(0, 0, 1280, 720, 'kassamain');
-        this.register = this.game.add.sprite(150, this.game.height - 77, 'register');
-        this.register.anchor.setTo(0, 1);
-        this.register.scale.setTo(0.2);
-
-        //Define moveme constants
+        //Define movement constants
         this.MAX_SPEED = 750;
         this.ACCELERATION = 1500;
         this.FORCE = 500;
         this.DRAG = 800;
         this.GRAVITY = 2600;
         this.JUMP_SPEED = -700;
-
-        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.HANDANIMATIONSPEED = 2000;
+        
+        this.game.add.sprite(0, 0, 'backgroundPlay');
+        this.game.add.sprite(0, 0, 'kassamain');
+        this.register = this.game.add.sprite(150, this.game.height - 77, 'register');
+        this.register.anchor.setTo(0, 1);
+        this.register.scale.setTo(0.2);
+        this.hand = this.game.add.sprite(-25, 270, 'hand');
+        this.game.add.tween(this.hand).to( { angle: 10 }, this.HANDANIMATIONSPEED, Phaser.Easing.Linear.None, true).to( { angle: -10 }, this.HANDANIMATIONSPEED, Phaser.Easing.Linear.None, false).loop();
+        
+        this.game.physics.startSystem(Phaser.Physics.P2JS);
         this.game.physics.arcade.gravity.y = this.GRAVITY;
 
         this.player = this.game.add.sprite(this.game.width / 2, this.game.height - 120, 'player');
 
-        this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
+        this.game.physics.enable(this.player, Phaser.Physics.P2JS);
 
         this.player.body.collideWorldBounds = true;
         this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED * 10); // x, y
@@ -82,7 +85,6 @@ State.Play.prototype = {
         keyEsc.onDown.add(this.backToMain, this);
     },
     update: function() {
-
         // Collide the player with the ground
         this.game.physics.arcade.collide(this.player, this.ground);
         this.game.physics.arcade.collide(this.obstacle, this.ground);
@@ -159,7 +161,7 @@ State.Play.prototype = {
         isActive |= (this.game.input.activePointer.justPressed(duration + 1000 / 60) &&
             this.game.input.activePointer.x > this.game.width / 4 &&
             this.game.input.activePointer.x < this.game.width / 2 + this.game.width / 4);
-
+        
         return isActive;
     },
     upInputReleased: function() {
@@ -167,7 +169,7 @@ State.Play.prototype = {
 
         released = this.input.keyboard.justReleased(Phaser.Keyboard.UP);
         released |= this.game.input.activePointer.justReleased();
-
+        
         return released;
     },
     backToMain: function() {

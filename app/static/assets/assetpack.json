@@ -63,6 +63,30 @@
             "key": "kassamain",
             "url": "assets/img/kassaMainPart.png",
             "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "hand",
+            "url": "assets/img/hand.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "brot",
+            "url": "assets/img/brot.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "orangensaft",
+            "url": "assets/img/orangensaft.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "weinflasche",
+            "url": "assets/img/weinflasche.png",
+            "overwrite": false
         }
     ],
     "highscore": [

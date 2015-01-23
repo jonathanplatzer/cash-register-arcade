@@ -22,6 +22,7 @@ State.Highscore.prototype = {
     create: function() {
         this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundHighscore');
         this.graphics = this.game.add.graphics(0, 0);
+        this.graphics.alpha = 0.9;
         
 		//Set text style
 		this.style = { font: "40px Arial", fill: "#ffffff", align: "center" };
@@ -36,6 +37,7 @@ State.Highscore.prototype = {
         
         //Highscore Header-Box
         this.headerGraphics = this.game.add.graphics(0, 0);
+        this.headerGraphics.alpha = 0.9;
         this.headerGraphics.beginFill(0x393d3f);
         this.headerGraphics.lineStyle(5, 0x262e33);
         this.headerGraphics.drawRect(230, 38, 1000, 50);
@@ -120,6 +122,8 @@ State.Highscore.prototype = {
 	removeBoxes: function() {
         this.graphics.destroy(false);
         this.graphics = this.game.add.graphics(0, 0);
+        this.graphics.alpha = 0.9;
+        
     },
 	compare: function (a,b) {
 		return b.score - a.score;
