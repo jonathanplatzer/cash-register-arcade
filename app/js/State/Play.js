@@ -40,7 +40,41 @@ State.Play.prototype = {
         this.hand = this.game.add.sprite(-25, 270, 'hand');
         this.game.add.tween(this.hand).to( { angle: 10 }, this.HANDANIMATIONSPEED, Phaser.Easing.Linear.None, true).to( { angle: -10 }, this.HANDANIMATIONSPEED, Phaser.Easing.Linear.None, false).loop();
         
+        /*
+        "x": [0, 160, 195, 295, 295, 195, 160,  0],
+        "y": [0,   0,  27,  27,  53,  53,  80, 80]    
+        */
+        
+        var polyWeinflasche = new Phaser.Polygon();
+        polyWeinflasche.setTo([0, 0, 160, 0, 195, 27, 295, 27, 295, 53, 195, 53, 160, 80, 0, 80]);
+        
+        //var graphics = this.game.add.graphics(0, 0);
+        
+        //graphics.beginFill(0xFF33ff);
+        //graphics.drawPolygon(poly);
+        //graphics.endFill();
+        
         this.game.physics.startSystem(Phaser.Physics.P2JS);
+        this.game.physics.p2.gravity.y = 1400;
+        this.game.physics.p2.restitution = 0.1;
+        
+        var pointswein = [0, 0, 160, 0, 195, 27, 295, 27, 295, 53, 195, 53, 160, 80, 0, 80];
+        
+        var weinflasche = this.game.add.sprite(420, 300, 'weinflasche');
+        
+        this.game.physics.p2.enable(weinflasche, true);
+        weinflasche.body.offset = new Phaser.Point(500, 0);
+        weinflasche.body.addRectangle( {}, pointswein);
+        
+        weinflasche.body.rotateRight(400);
+        
+        /*
+        var weinflasche1 = this.game.add.sprite(500, 100, 'weinflasche');
+        this.game.physics.p2.enable(weinflasche1, true);
+        weinflasche1.body.addPolygon( { optimalDecomp: false, skipSimpleCheck: false, removeCollinearPoints: false }, pointswein);
+        */
+        
+        /*this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.physics.arcade.gravity.y = this.GRAVITY;
 
         this.player = this.game.add.sprite(this.game.width / 2, this.game.height - 120, 'block');
@@ -73,14 +107,14 @@ State.Play.prototype = {
             groundBlock.body.allowGravity = false;
             this.ground.add(groundBlock);
         }
-
+        */
         cursors = this.game.input.keyboard.createCursorKeys();
-
+        
         keyEsc = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
         keyEsc.onDown.add(this.backToMain, this);
     },
     update: function() {
-        // Collide the player with the ground
+        /*// Collide the player with the ground
         this.game.physics.arcade.collide(this.player, this.ground);
         this.game.physics.arcade.collide(this.player, this.obstacles);
 
@@ -120,52 +154,52 @@ State.Play.prototype = {
             if (this.obstacles[i].body.x < -120) {
                 this.obstacles.pop(i);
             }
-        }
+        }*/
     },
     createObstacle: function() {
-        console.log("create obstalce");
+        /*console.log("create obstalce");
         var randomObstacle = {
             body: {
                 x: 120
             }
         };
-        this.obstacles.push(randomObstacle);
+        this.obstacles.push(randomObstacle);*/
     },
     leftInputIsActive: function() {
-        var isActive = false;
+        /*var isActive = false;
 
         isActive = this.input.keyboard.isDown(Phaser.Keyboard.LEFT);
         isActive |= (this.game.input.activePointer.isDown &&
             this.game.input.activePointer.x < this.game.width / 4);
 
-        return isActive;
+        return isActive;*/
     },
     rightInputIsActive: function() {
-        var isActive = false;
+        /*var isActive = false;
 
         isActive = this.input.keyboard.isDown(Phaser.Keyboard.RIGHT);
         isActive |= (this.game.input.activePointer.isDown &&
             this.game.input.activePointer.x > this.game.width / 2 + this.game.width / 4);
 
-        return isActive;
+        return isActive;*/
     },
     upInputIsActive: function(duration) {
-        var isActive = false;
+        /*var isActive = false;
 
         isActive = this.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR, duration);
         isActive |= (this.game.input.activePointer.justPressed(duration + 1000 / 60) &&
             this.game.input.activePointer.x > this.game.width / 4 &&
             this.game.input.activePointer.x < this.game.width / 2 + this.game.width / 4);
         
-        return isActive;
+        return isActive;*/
     },
     upInputReleased: function() {
-        var released = false;
+        /*var released = false;
 
         released = this.input.keyboard.justReleased(Phaser.Keyboard.UP);
         released |= this.game.input.activePointer.justReleased();
         
-        return released;
+        return released;*/
     },
     backToMain: function() {
         this.game.state.start('mainMenu');
