@@ -15,8 +15,9 @@ State.Preloader = function(game) {};
 
 State.Preloader.prototype = {
     preload: function() {
-        this.load.image('loading','/assets/img/loading.png');
+        this.load.image('loading','assets/img/loading.png');
         this.load.audio('backgroundMusic', 'assets/sfx/backgroundMusic.ogg');
+        this.game.load.text('obstacleCatalogFile', 'assets/obstaclecatalog.json');
     },
     create: function() {
         this.loadingImage = this.game.add.image(0, 0, 'loading');
@@ -26,12 +27,15 @@ State.Preloader.prototype = {
         this.loader = new Phaser.Loader(this.game);
         this.loader.onLoadComplete.addOnce(this.loadCompleted, this);
 
-        this.loader.pack('mainMenu','/assets/assetpack.json', null, this);
-        this.loader.pack('play','/assets/assetpack.json', null, this);
-        this.loader.pack('highscore','/assets/assetpack.json', null, this);
-        this.loader.pack('optionMenu','/assets/assetpack.json', null, this);
-
+        this.loader.pack('mainMenu', 'assets/assetpack.json', null, this);
+        this.loader.pack('play', 'assets/assetpack.json', null, this);
+        this.loader.pack('highscore',' assets/assetpack.json', null, this);
+        this.loader.pack('optionMenu', 'assets/assetpack.json', null, this);
+        
         this.loader.start();
+        
+        //ObstacleCatalog
+        this.game.obstacleCatalog = JSON.parse(this.game.cache.getText('obstacleCatalogFile'));
         
         //Music Init
         this.game.backgroundmusic = this.game.add.audio('backgroundMusic');

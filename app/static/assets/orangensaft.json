@@ -1,0 +1,12 @@
+	{ 
+		
+		"orangensaft": [
+			
+				{
+					"density": 2, "friction": 0, "bounce": 0, 
+					"filter": { "categoryBits": 1, "maskBits": 65535 },
+					"shape": [   0, 160  ,  0, 33  ,  6, 0  ,  65, 0  ,  72, 33  ,  72, 160  ]
+				}  
+		]
+		
+	}

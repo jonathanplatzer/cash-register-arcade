@@ -15,6 +15,7 @@ State.Play = function(game) {};
 State.Play.prototype = {
     preload: function() {
         this.load.image('block', '/assets/img/block.png');
+        this.game.load.physics('physicsData', 'assets/physicsdata.json');
     },
     create: function() {
         //Define movement constants
@@ -40,39 +41,30 @@ State.Play.prototype = {
         this.hand = this.game.add.sprite(-25, 270, 'hand');
         this.game.add.tween(this.hand).to( { angle: 10 }, this.HANDANIMATIONSPEED, Phaser.Easing.Linear.None, true).to( { angle: -10 }, this.HANDANIMATIONSPEED, Phaser.Easing.Linear.None, false).loop();
         
-        /*
-        "x": [0, 160, 195, 295, 295, 195, 160,  0],
-        "y": [0,   0,  27,  27,  53,  53,  80, 80]    
-        */
-        
-        var polyWeinflasche = new Phaser.Polygon();
-        polyWeinflasche.setTo([0, 0, 160, 0, 195, 27, 295, 27, 295, 53, 195, 53, 160, 80, 0, 80]);
-        
-        //var graphics = this.game.add.graphics(0, 0);
-        
-        //graphics.beginFill(0xFF33ff);
-        //graphics.drawPolygon(poly);
-        //graphics.endFill();
-        
+        //Correct Polygon Collision
         this.game.physics.startSystem(Phaser.Physics.P2JS);
         this.game.physics.p2.gravity.y = 1400;
-        this.game.physics.p2.restitution = 0.1;
-        
-        var pointswein = [0, 0, 160, 0, 195, 27, 295, 27, 295, 53, 195, 53, 160, 80, 0, 80];
+        this.game.physics.p2.restitution = 0.4;
         
         var weinflasche = this.game.add.sprite(420, 300, 'weinflasche');
-        
         this.game.physics.p2.enable(weinflasche, true);
-        weinflasche.body.offset = new Phaser.Point(500, 0);
-        weinflasche.body.addRectangle( {}, pointswein);
+        weinflasche.body.fixedRotation  = true;
+        weinflasche.body.clearShapes();
+        weinflasche.body.addPhaserPolygon('physicsData', 'weinflasche');
         
-        weinflasche.body.rotateRight(400);
+        var brot = this.game.add.sprite(600, 300, 'brot');
+        this.game.physics.p2.enable(brot, true);
+        brot.body.fixedRotation  = true;
+        brot.body.clearShapes();
+        brot.body.addPhaserPolygon('physicsData', 'brot');
         
-        /*
-        var weinflasche1 = this.game.add.sprite(500, 100, 'weinflasche');
-        this.game.physics.p2.enable(weinflasche1, true);
-        weinflasche1.body.addPolygon( { optimalDecomp: false, skipSimpleCheck: false, removeCollinearPoints: false }, pointswein);
-        */
+        var orangensaft = this.game.add.sprite(850, 300, 'orangensaft');
+        this.game.physics.p2.enable(orangensaft, true);
+        orangensaft.body.fixedRotation  = true;
+        orangensaft.body.clearShapes();
+        orangensaft.body.addPhaserPolygon('physicsData', 'orangensaft');
+        //YEAH
+        
         
         /*this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.physics.arcade.gravity.y = this.GRAVITY;
