@@ -14,6 +14,7 @@ State.Play = function(game) {};
 
 State.Play.prototype = {
     preload: function() {
+        this.load.image('block', '/assets/img/block.png');
     },
     create: function() {
         //Define movement constants
@@ -24,6 +25,12 @@ State.Play.prototype = {
         this.GRAVITY = 2600;
         this.JUMP_SPEED = -700;
         this.HANDANIMATIONSPEED = 2000;
+        
+        this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundPlay');
+        this.game.add.tileSprite(0, 0, 1280, 720, 'kassamain');
+        this.register = this.game.add.sprite(150, this.game.height - 77, 'register');
+        this.register.anchor.setTo(0, 1);
+        this.register.scale.setTo(0.2);
         
         this.game.add.sprite(0, 0, 'backgroundPlay');
         this.game.add.sprite(0, 0, 'kassamain');
@@ -36,14 +43,15 @@ State.Play.prototype = {
         this.game.physics.startSystem(Phaser.Physics.P2JS);
         this.game.physics.arcade.gravity.y = this.GRAVITY;
 
-        this.player = this.game.add.sprite(this.game.width / 2, this.game.height - 120, 'player');
+        this.player = this.game.add.sprite(this.game.width / 2, this.game.height - 120, 'block');
 
         this.game.physics.enable(this.player, Phaser.Physics.P2JS);
 
         this.player.body.collideWorldBounds = true;
         this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED * 10); // x, y
         this.player.body.drag.setTo(this.DRAG, 0); // x, y
-        this.player.scale.setTo(0.1875);
+        this.player.scale.setTo(1.5);
+        this.player.tint = 0xff00ff;
 
         this.game.input.keyboard.addKeyCapture([
             Phaser.Keyboard.LEFT,
@@ -52,22 +60,12 @@ State.Play.prototype = {
             Phaser.Keyboard.DOWN
         ]);
 
-        this.obstacle = this.game.add.sprite(this.game.width/4, this.game.height - 72, 'player');
-        this.game.physics.enable(this.obstacle, Phaser.Physics.ARCADE);
-        this.obstacle.anchor.setTo(1,1);
-        this.obstacle.scale.setTo(0.2);
-        this.obstacle.collideWorldBounds = false;
-        this.obstacle.body.allowGravity = true;
+        this.obstacles = [];
 
-        this.obstacle2 = this.game.add.sprite((this.game.width/4)*3, this.game.height - 72, 'player');
-        this.game.physics.enable(this.obstacle2, Phaser.Physics.ARCADE);
-        this.obstacle2.anchor.setTo(1,1);
-        this.obstacle2.scale.setTo(0.4);
-        this.obstacle2.collideWorldBounds = false;
-        this.obstacle2.body.allowGravity = true;
+        this.game.time.events.loop(Phaser.Timer.SECOND, this.createObstacle, this);
 
         this.ground = this.game.add.group();
-        for (var x = -128; x < this.game.width+128; x += 32) {
+        for (var x = -128; x < this.game.width + 128; x += 32) {
             // Add the ground blocks, enable physics on each, make them immovable
             var groundBlock = this.game.add.sprite(x, this.game.height - 36);
             this.game.physics.enable(groundBlock, Phaser.Physics.ARCADE);
@@ -75,9 +73,6 @@ State.Play.prototype = {
             groundBlock.body.allowGravity = false;
             this.ground.add(groundBlock);
         }
-
-        this.ground.add(this.obstacle);
-        this.ground.add(this.obstacle2);
 
         cursors = this.game.input.keyboard.createCursorKeys();
 
@@ -87,8 +82,7 @@ State.Play.prototype = {
     update: function() {
         // Collide the player with the ground
         this.game.physics.arcade.collide(this.player, this.ground);
-        this.game.physics.arcade.collide(this.obstacle, this.ground);
-        this.game.physics.arcade.collide(this.obstacle2, this.ground);
+        this.game.physics.arcade.collide(this.player, this.obstacles);
 
         var onTheGround = this.player.body.touching.down;
 
@@ -102,11 +96,6 @@ State.Play.prototype = {
             this.player.body.acceleration.x = 0;
             if (onTheGround) {
                 this.canDoubleJump = true;
-
-                //this.player.body.velocity.x = -this.FORCE;
-                if(!this.player.body.touching.right && !this.player.body.touching.right) {
-                    //this.player.body.velocity.x = 0;
-                }
             }
 
         }
@@ -125,16 +114,22 @@ State.Play.prototype = {
             }
         }
 
-        this.obstacle.body.velocity.x = -this.FORCE;
-        this.obstacle2.body.velocity.x = -this.FORCE;
+        for (var i = this.obstacles.length - 1; i >= 0; i--) {
+            this.obstacles[i].body.velocity = -this.FORCE;
 
-        if(this.obstacle.x < 0) {
-            this.obstacle.body.x = 1280;
+            if (this.obstacles[i].body.x < -120) {
+                this.obstacles.pop(i);
+            }
         }
-
-        if(this.obstacle2.x < 0) {
-            this.obstacle2.body.x = 1280;
-        }
+    },
+    createObstacle: function() {
+        console.log("create obstalce");
+        var randomObstacle = {
+            body: {
+                x: 120
+            }
+        };
+        this.obstacles.push(randomObstacle);
     },
     leftInputIsActive: function() {
         var isActive = false;
