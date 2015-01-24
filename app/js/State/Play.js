@@ -39,7 +39,12 @@ State.Play.prototype = {
         this.register.anchor.setTo(0, 1);
         this.register.scale.setTo(0.2);
         this.hand = this.game.add.sprite(-23, 270, 'hand');
-        this.game.add.tween(this.hand).to( { angle: 10 }, this.HANDANIMATIONSPEED, Phaser.Easing.Linear.None, true).to( { angle: -10 }, this.HANDANIMATIONSPEED, Phaser.Easing.Linear.None, false).loop();
+        this.tweenhand = this.game.add.tween(this.hand).to( { angle: 10 }, this.HANDANIMATIONSPEED/2, Phaser.Easing.Linear.None)
+                                                       .to( { angle: -10 }, this.HANDANIMATIONSPEED, Phaser.Easing.Linear.None)
+                                                       .to( { angle: 0 }, this.HANDANIMATIONSPEED/2, Phaser.Easing.Linear.None)
+                                                       .loop(); // /2 weil die beiden animationen nur den halben weg haben
+        
+        this.tweenhand.start();
         
         //Correct Polygon Collision
         this.game.physics.startSystem(Phaser.Physics.P2JS);
