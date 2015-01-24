@@ -28,12 +28,20 @@ State.Highscore.prototype = {
 		this.style = { font: "40px Arial", fill: "#ffffff", align: "center" };
 		
 		//Add UI elements
-		this.buttonBack = this.game.add.button(30, this.game.world.height - 30, 'buttonBack', this.onBackToMain , this, 1, 0);
+		this.buttonBack = this.game.add.button(30, this.game.world.height - 30, 'buttonHighscoreBack', this.onBackToMain , this, 1, 0);
 		this.buttonBack.anchor.setTo(0, 1);
-		this.buttonUp = this.game.add.button(30, 30, 'buttonUp', this.onHighscoreUp , this, 1 ,0);
+		this.buttonUp = this.game.add.button(30, 30, 'buttonHighscoreUp', this.onHighscoreUp , this, 1 ,0);
 		this.buttonUp.anchor.setTo(0, 0);
-		this.buttonDown = this.game.add.button(30, 210, 'buttonDown', this.onHighscoreDown , this, 1, 0);
+		this.buttonDown = this.game.add.button(30, 210, 'buttonHighscoreDown', this.onHighscoreDown , this, 1, 0);
 		this.buttonDown.anchor.setTo(0, 0);
+        
+        //SFX Init
+        this.buttonBack.setOverSound(this.game.buttonoversfx);
+        this.buttonUp.setOverSound(this.game.buttonoversfx);
+        this.buttonDown.setOverSound(this.game.buttonoversfx);
+        this.buttonBack.setDownSound(this.game.buttonselectsfx);
+        this.buttonUp.setDownSound(this.game.buttonselectsfx);
+        this.buttonDown.setDownSound(this.game.buttonselectsfx);
         
         //Highscore Header-Box
         this.headerGraphics = this.game.add.graphics(0, 0);

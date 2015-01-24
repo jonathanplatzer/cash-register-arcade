@@ -100,24 +100,24 @@
         },
         {
             "type": "spritesheet",
-            "key": "buttonBack",
-            "url": "assets/img/buttonHighscoresBack.png",
+            "key": "buttonHighscoreBack",
+            "url": "assets/img/buttonHighscoreBack.png",
             "overwrite": false,
             "frameWidth": 150,
             "frameHeight": 150
         },
         {
             "type": "spritesheet",
-            "key": "buttonUp",
-            "url": "assets/img/buttonHighscoresUp.png",
+            "key": "buttonHighscoreUp",
+            "url": "assets/img/buttonHighscoreUp.png",
             "overwrite": false,
             "frameWidth": 150,
             "frameHeight": 150
         },
         {
             "type": "spritesheet",
-            "key": "buttonDown",
-            "url": "assets/img/buttonHighscoresDown.png",
+            "key": "buttonHighscoreDown",
+            "url": "assets/img/buttonHighscoreDown.png",
             "overwrite": false,
             "frameWidth": 150,
             "frameHeight": 150
@@ -140,7 +140,7 @@
         },
         {
             "type": "spritesheet",
-            "key": "button_theme",
+            "key": "buttonTheme",
             "url": "assets/img/buttonTheme.png",
             "overwrite": false,
             "frameWidth": 300,
@@ -148,7 +148,7 @@
         },
         {
             "type": "spritesheet",
-            "key": "button_music",
+            "key": "buttonMusic",
             "url": "assets/img/buttonMusic.png",
             "overwrite": false,
             "frameWidth": 300,
@@ -156,7 +156,7 @@
         },
         {
             "type": "spritesheet",
-            "key": "button_sound",
+            "key": "buttonSfx",
             "url": "assets/img/buttonSfx.png",
             "overwrite": false,
             "frameWidth": 300,
@@ -164,7 +164,7 @@
         },
         {
             "type": "spritesheet",
-            "key": "button_back",
+            "key": "buttonBack",
             "url": "assets/img/buttonBack.png",
             "overwrite": false,
             "frameWidth": 300,
