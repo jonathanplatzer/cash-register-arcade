@@ -47,10 +47,12 @@
             "overwrite": false
         },
         {
-            "type": "image",
+            "type": "spritesheet",
             "key": "player",
-            "url": "assets/img/player_weich.png",
-            "overwrite": false
+            "url": "assets/img/player.png",
+            "overwrite": false,
+            "frameWidth": 35,
+            "frameHeight": 80
         },
         {
             "type": "image",

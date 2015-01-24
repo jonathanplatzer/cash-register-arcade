@@ -38,7 +38,7 @@ State.Play.prototype = {
         this.register = this.game.add.sprite(150, this.game.height - 77, 'register');
         this.register.anchor.setTo(0, 1);
         this.register.scale.setTo(0.2);
-        this.hand = this.game.add.sprite(-25, 270, 'hand');
+        this.hand = this.game.add.sprite(-23, 270, 'hand');
         this.game.add.tween(this.hand).to( { angle: 10 }, this.HANDANIMATIONSPEED, Phaser.Easing.Linear.None, true).to( { angle: -10 }, this.HANDANIMATIONSPEED, Phaser.Easing.Linear.None, false).loop();
         
         //Correct Polygon Collision
@@ -63,7 +63,15 @@ State.Play.prototype = {
         orangensaft.body.fixedRotation  = true;
         orangensaft.body.clearShapes();
         orangensaft.body.addPhaserPolygon('physicsData', 'orangensaft');
-        //YEAH
+        
+        this.player = this.game.add.sprite(1200, 300, 'player');
+        this.game.physics.p2.enable(this.player, false);
+        this.player.body.fixedRotation  = true;
+        this.player.body.addRectangle();
+        this.player.animations.add('run', [0, 1, 2, 3, 4, 5], 20, true);  //Animation geht nach rechts, für undrehen der seite einfach this.player.scale.x *= -1;
+        this.player.animations.add('inair', [6], 20, true);
+        
+        this.player.animations.play('run');
         
         
         /*this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -158,40 +166,40 @@ State.Play.prototype = {
         this.obstacles.push(randomObstacle);*/
     },
     leftInputIsActive: function() {
-        /*var isActive = false;
+        var isActive = false;
 
         isActive = this.input.keyboard.isDown(Phaser.Keyboard.LEFT);
         isActive |= (this.game.input.activePointer.isDown &&
             this.game.input.activePointer.x < this.game.width / 4);
 
-        return isActive;*/
+        return isActive;
     },
     rightInputIsActive: function() {
-        /*var isActive = false;
+        var isActive = false;
 
         isActive = this.input.keyboard.isDown(Phaser.Keyboard.RIGHT);
         isActive |= (this.game.input.activePointer.isDown &&
             this.game.input.activePointer.x > this.game.width / 2 + this.game.width / 4);
 
-        return isActive;*/
+        return isActive;
     },
     upInputIsActive: function(duration) {
-        /*var isActive = false;
+        var isActive = false;
 
         isActive = this.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR, duration);
         isActive |= (this.game.input.activePointer.justPressed(duration + 1000 / 60) &&
             this.game.input.activePointer.x > this.game.width / 4 &&
             this.game.input.activePointer.x < this.game.width / 2 + this.game.width / 4);
         
-        return isActive;*/
+        return isActive;
     },
     upInputReleased: function() {
-        /*var released = false;
+        var released = false;
 
         released = this.input.keyboard.justReleased(Phaser.Keyboard.UP);
         released |= this.game.input.activePointer.justReleased();
         
-        return released;*/
+        return released;
     },
     backToMain: function() {
         this.game.state.start('mainMenu');
