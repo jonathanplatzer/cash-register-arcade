@@ -63,6 +63,8 @@ State.Preloader.prototype = {
         //SFX Init
         this.game.buttonoversfx = this.add.audio('buttonoversfx');
         this.game.buttonselectsfx = this.add.audio('buttonselectsfx');
+        this.game.buttonoversfx.volume = 0.5;
+        this.game.buttonselectsfx.volume = 0.5;
     },
     loadCompleted: function(key) {
         this.completed = true;

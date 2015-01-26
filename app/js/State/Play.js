@@ -18,14 +18,20 @@ State.Play.prototype = {
         this.game.load.physics('physicsData', 'assets/physicsdata.json');
     },
     create: function() {
-        //Define movement constants
+        //Define movement constants - old
         this.MAX_SPEED = 750;
         this.ACCELERATION = 1500;
         this.FORCE = 500;
         this.DRAG = 800;
         this.GRAVITY = 2600;
         this.JUMP_SPEED = -700;
-        this.HANDANIMATIONSPEED = 2000;
+        
+        //Define movement constants
+        this.HANDANIMATIONTIME = 2000;
+        this.ONTHEGROUND = false;
+        this.canDoubleJump = true;
+        this.wasleft = false;
+        this.wasright = false;
         
         this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundPlay');
         this.game.add.tileSprite(0, 0, 1280, 720, 'kassamain');
@@ -38,20 +44,22 @@ State.Play.prototype = {
         this.register = this.game.add.sprite(150, this.game.height - 77, 'register');
         this.register.anchor.setTo(0, 1);
         this.register.scale.setTo(0.2);
-        this.hand = this.game.add.sprite(-23, 270, 'hand');
-        this.tweenhand = this.game.add.tween(this.hand).to( { angle: 10 }, this.HANDANIMATIONSPEED/2, Phaser.Easing.Linear.None)
-                                                       .to( { angle: -10 }, this.HANDANIMATIONSPEED, Phaser.Easing.Linear.None)
-                                                       .to( { angle: 0 }, this.HANDANIMATIONSPEED/2, Phaser.Easing.Linear.None)
-                                                       .loop(); // /2 weil die beiden animationen nur den halben weg haben
         
+        //Hand Init
+        this.hand = this.game.add.sprite(-23, 270, 'hand');
+        this.tweenhand = this.game.add.tween(this.hand).to( { angle: 10 }, this.HANDANIMATIONTIME/2, Phaser.Easing.Linear.None)
+                                                       .to( { angle: -10 }, this.HANDANIMATIONTIME, Phaser.Easing.Linear.None)
+                                                       .to( { angle: 0 }, this.HANDANIMATIONTIME/2, Phaser.Easing.Linear.None)
+                                                       .loop(); // durch 2 weil die beiden animationen nur den halben weg haben
         this.tweenhand.start();
         
         //Correct Polygon Collision
         this.game.physics.startSystem(Phaser.Physics.P2JS);
         this.game.physics.p2.gravity.y = 1400;
-        this.game.physics.p2.restitution = 0.4;
+        this.game.physics.p2.restitution = 0.2;
+        this.game.physics.p2.setImpactEvents(true);
         
-        var weinflasche = this.game.add.sprite(420, 300, 'weinflasche');
+        var weinflasche = this.game.add.sprite(300, 300, 'weinflasche');
         this.game.physics.p2.enable(weinflasche, true);
         weinflasche.body.fixedRotation  = true;
         weinflasche.body.clearShapes();
@@ -73,10 +81,70 @@ State.Play.prototype = {
         this.game.physics.p2.enable(this.player, false);
         this.player.body.fixedRotation  = true;
         this.player.body.addRectangle();
-        this.player.animations.add('run', [0, 1, 2, 3, 4, 5], 20, true);  //Animation geht nach rechts, für undrehen der seite einfach this.player.scale.x *= -1;
+        this.player.animations.add('run', [0, 1, 2, 3, 4, 5], 20, true);  //Animation geht nach rechts, für umdrehen der seite einfach this.player.scale.x *= -1;
         this.player.animations.add('inair', [6], 20, true);
         
         this.player.animations.play('run');
+        
+        
+        this.game.input.keyboard.addKeyCapture([
+            Phaser.Keyboard.LEFT,
+            Phaser.Keyboard.RIGHT,
+            Phaser.Keyboard.UP,
+            Phaser.Keyboard.DOWN
+        ]);
+        
+        this.obstacles = [];
+        this.game.time.events.loop(Phaser.Timer.SECOND, this.createObstacle, this);
+        
+        this.groundblock = this.game.add.sprite(0 + 640, this.game.height - 36 + 17, 'groundblock'); //P2 anchor is 0.5|0.5 -- x + 640 to set it to x = 0 -- this.game.height - 36 + 17 to center it on the register
+        this.game.physics.p2.enable(this.groundblock, false);
+        this.groundblock.body.dynamic = false;
+        
+        
+        
+        var playerCollisionGroup = this.game.physics.p2.createCollisionGroup();
+        var objectsCollisionGroup = this.game.physics.p2.createCollisionGroup();
+        var groundCollisionGroup = this.game.physics.p2.createCollisionGroup();
+        
+        weinflasche.body.setCollisionGroup(objectsCollisionGroup);
+        brot.body.setCollisionGroup(objectsCollisionGroup);
+        orangensaft.body.setCollisionGroup(objectsCollisionGroup);
+        this.groundblock.body.setCollisionGroup(groundCollisionGroup);
+        
+        weinflasche.body.collides([objectsCollisionGroup, playerCollisionGroup, groundCollisionGroup]);
+        brot.body.collides([objectsCollisionGroup, playerCollisionGroup, groundCollisionGroup]);
+        orangensaft.body.collides([objectsCollisionGroup, playerCollisionGroup, groundCollisionGroup]);
+        this.groundblock.body.collides([objectsCollisionGroup, playerCollisionGroup]);
+        
+        this.player.body.setCollisionGroup(playerCollisionGroup);
+        this.player.body.collides([objectsCollisionGroup, groundCollisionGroup], this.onGround, this);
+        //this.player.body.collides(groundCollisionGroup, this.onGround, this);
+        
+        this.game.physics.p2.updateBoundsCollisionGroup();
+        
+        
+        /*this.ground = this.game.add.group();
+        for (var x = -128; x < this.game.width + 128; x += 32) {
+            // Add the ground blocks, enable physics on each, make them immovable
+            var groundBlock = this.game.add.sprite(x, this.game.height - 36);
+            this.game.physics.p2.enable(groundBlock, true);
+            groundBlock.body.dynamic = false;
+            groundBlock.anchor.setTo(0,0);
+            groundBlock.body.x = x;
+            groundBlock.body.y = this.game.height - 36;
+            this.ground.add(groundBlock);
+        }*/
+        
+        //this.groundblock = this.game.add.sprite(0, this.game.height - 36, 'groundblock');
+        //this.game.physics.p2.enable(this.groundblock, true);
+        //this.groundblock.body.static = true;
+        //this.groundblock.body.clearShapes();
+        //this.groundblock.body.addPhaserPolygon('physicsData', 'groundblock');
+        
+        /*this.groundblock2 = this.game.add.sprite(this.game.width/2, this.game.height - 36, 'groundblock');
+        this.game.physics.p2.enable(this.groundblock2, true);
+        this.groundblock2.body.dynamic = false;*/
         
         
         /*this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -117,6 +185,9 @@ State.Play.prototype = {
         
         keyEsc = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
         keyEsc.onDown.add(this.backToMain, this);
+        
+        this.leftspeed = 0;
+        this.rightspeed = 0;
     },
     update: function() {
         /*// Collide the player with the ground
@@ -160,6 +231,55 @@ State.Play.prototype = {
                 this.obstacles.pop(i);
             }
         }*/
+        
+        if (this.leftInputIsActive()) {
+            if(this.leftspeed <= 400)
+            {
+                this.leftspeed += 10;
+            }
+            this.rightspeed = 0;
+            
+            this.wasleft = true;
+            this.wasright = false;
+            this.player.body.moveLeft(this.leftspeed);
+        } else if (this.rightInputIsActive()) {
+            if(this.rightspeed <= 400)
+            {
+                this.rightspeed += 10;
+            }
+            this.leftspeed = 0;
+            
+            this.wasright = true;
+            this.wasleft = false;
+            this.player.body.moveRight(this.rightspeed);
+        } else {
+            //Prevent massive speed and movement after going in the same direction more than one time
+            this.rightspeed = 0;
+            this.leftspeed = 0;
+            //Reset the ability to double jump after player hit the ground
+            if(this.ONTHEGROUND) {
+                //console.log("FIRST IF:--- ONTHEGROUND:" + this.ONTHEGROUND + " CANDOUBLEJUMP: " + this.canDoubleJump);
+                this.canDoubleJump = true;
+            }
+        }
+        
+        if (this.upInputIsActive(3)) {
+            if(this.ONTHEGROUND || this.canDoubleJump)
+            {
+                this.player.body.data.applyForce([0, 1500], [0, 0]);
+                //First time in this function INTHEGROUND is true
+                //After first jump action ONTHEGROUND is set to false
+                //Next time jump is pressed while being in air canDoubleJump becomes false
+                if(!this.ONTHEGROUND)
+                {
+                    this.canDoubleJump = false;
+                }
+                else {
+                    this.ONTHEGROUND = false;
+                    this.player.animations.play('inair');
+                }
+            }
+        }
     },
     createObstacle: function() {
         /*console.log("create obstalce");
@@ -191,7 +311,7 @@ State.Play.prototype = {
     upInputIsActive: function(duration) {
         var isActive = false;
 
-        isActive = this.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR, duration);
+        isActive = this.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, duration);
         isActive |= (this.game.input.activePointer.justPressed(duration + 1000 / 60) &&
             this.game.input.activePointer.x > this.game.width / 4 &&
             this.game.input.activePointer.x < this.game.width / 2 + this.game.width / 4);
@@ -208,5 +328,10 @@ State.Play.prototype = {
     },
     backToMain: function() {
         this.game.state.start('mainMenu');
+    },
+    onGround: function() {
+        this.ONTHEGROUND = true;
+        this.player.animations.play('run');
+        //this.player.reset(this.player.x, this.player.y, true);
     }
 };
