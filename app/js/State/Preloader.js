@@ -25,7 +25,7 @@ State.Preloader.prototype = {
         this.load.text('obstacleCatalogFile', 'assets/obstaclecatalog.json');
     },
     create: function() {
-        this.loadingImage = this.game.add.image(0, 0, 'loading');
+        this.loadingImage = this.add.image(0, 0, 'loading');
         this.loadingImage.x = this.game.width / 2 - this.loadingImage.width / 2;
         this.loadingImage.y = this.game.height / 2 - this.loadingImage.height / 2;
 
@@ -52,6 +52,8 @@ State.Preloader.prototype = {
         //SFX Init
         this.game.buttonoversfx = this.add.audio('buttonoversfx');
         this.game.buttonselectsfx = this.add.audio('buttonselectsfx');
+        this.game.buttonoversfx.volume = 0.5;
+        this.game.buttonselectsfx.volume = 0.5;
     },
     loadCompleted: function(key) {
         this.state.start('mainMenu');

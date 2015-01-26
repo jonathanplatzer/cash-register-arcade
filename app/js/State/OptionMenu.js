@@ -78,8 +78,8 @@ State.OptionMenu.prototype = {
         
         if(this.game.sfx) {
             this.sprite_sfx_indicator.frame = 0;
-            this.game.buttonoversfx.volume = 1;
-            this.game.buttonselectsfx.volume = 1;
+            this.game.buttonoversfx.volume = 0.5;
+            this.game.buttonselectsfx.volume = 0.5;
         }
         else {
             this.sprite_sfx_indicator.frame = 1;

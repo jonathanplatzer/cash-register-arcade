@@ -89,6 +89,12 @@
             "key": "weinflasche",
             "url": "assets/img/weinflasche.png",
             "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "groundblock",
+            "url": "assets/img/groundblock.png",
+            "overwrite": false
         }
     ],
     "highscore": [
