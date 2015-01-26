@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1280"
-   height="720"
+   width="350"
+   height="350"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -28,7 +28,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.70710678"
-     inkscape:cx="630.80045"
+     inkscape:cx="434.22476"
      inkscape:cy="337.86834"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -54,33 +54,10 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-332.36218)">
-    <text
-       xml:space="preserve"
-       style="font-size:48px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="424.49219"
-       y="751.6825"
-       id="text3793"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3795"
-         x="424.49219"
-         y="751.6825">An error occurred.</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="345.42188"
-       y="795.70593"
-       id="text3816"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3818"
-         x="345.42188"
-         y="795.70593"
-         style="font-size:32px">We had trouble loading some assets.</tspan></text>
+     transform="translate(0,-702.36218)">
     <g
        id="g3003"
-       transform="translate(240,-127.5)">
+       transform="translate(-225,225.5)">
       <path
          inkscape:connector-curvature="0"
          id="path2987"
@@ -107,28 +84,5 @@
            transform="translate(-2,452.36218)" />
       </g>
     </g>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="138.84375"
-       y="830.70593"
-       id="text3002"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3004"
-         x="138.84375"
-         y="830.70593"
-         style="font-size:32px">This may be caused by a network failure or a server side error.</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="331.37695"
-       y="896.04187"
-       id="text3006"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3008"
-         x="331.37695"
-         y="896.04187">Please try refreshing the page.</tspan></text>
   </g>
 </svg>
