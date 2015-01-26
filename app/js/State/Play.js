@@ -276,6 +276,7 @@ State.Play.prototype = {
                 }
                 else {
                     this.ONTHEGROUND = false;
+                    this.player.animations.play('inair');
                 }
             }
         }
@@ -330,6 +331,7 @@ State.Play.prototype = {
     },
     onGround: function() {
         this.ONTHEGROUND = true;
+        this.player.animations.play('run');
         //this.player.reset(this.player.x, this.player.y, true);
     }
 };
