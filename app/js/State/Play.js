@@ -64,18 +64,21 @@ State.Play.prototype = {
         weinflasche.body.fixedRotation  = true;
         weinflasche.body.clearShapes();
         weinflasche.body.addPhaserPolygon('physicsData', 'weinflasche');
+        weinflasche.body.collideWorldBounds = false;
         
         var brot = this.game.add.sprite(600, 300, 'brot');
         this.game.physics.p2.enable(brot, true);
         brot.body.fixedRotation  = true;
         brot.body.clearShapes();
         brot.body.addPhaserPolygon('physicsData', 'brot');
+        brot.body.collideWorldBounds = false;
         
         var orangensaft = this.game.add.sprite(850, 300, 'orangensaft');
         this.game.physics.p2.enable(orangensaft, true);
         orangensaft.body.fixedRotation  = true;
         orangensaft.body.clearShapes();
         orangensaft.body.addPhaserPolygon('physicsData', 'orangensaft');
+        orangensaft.body.collideWorldBounds = false;
         
         this.player = this.game.add.sprite(1200, 300, 'player');
         this.game.physics.p2.enable(this.player, false);
@@ -232,6 +235,11 @@ State.Play.prototype = {
             }
         }*/
         
+        //Reset the ability to double jump after player hit the ground
+        if(this.ONTHEGROUND) {
+            this.canDoubleJump = true;
+        }
+        
         if (this.leftInputIsActive()) {
             if(this.leftspeed <= 400)
             {
@@ -256,11 +264,6 @@ State.Play.prototype = {
             //Prevent massive speed and movement after going in the same direction more than one time
             this.rightspeed = 0;
             this.leftspeed = 0;
-            //Reset the ability to double jump after player hit the ground
-            if(this.ONTHEGROUND) {
-                //console.log("FIRST IF:--- ONTHEGROUND:" + this.ONTHEGROUND + " CANDOUBLEJUMP: " + this.canDoubleJump);
-                this.canDoubleJump = true;
-            }
         }
         
         if (this.upInputIsActive(3)) {
