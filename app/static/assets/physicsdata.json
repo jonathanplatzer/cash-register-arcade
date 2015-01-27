@@ -51,19 +51,6 @@
             [65, 0, 72, 33, 72, 160, 0, 160, 0, 33, 6, 0]
         ]
       }
-    ],
-    "groundblock":[
-      {
-        "isSensor": false,
-        "filter": {
-            "group": 0,
-            "categoryBits": 1,
-            "maskBits": 65535
-        },
-        "polygons":[
-            [0, 0, 1280, 0, 1280, 36, 0, 36]
-        ]
-      }
     ]
 }
 

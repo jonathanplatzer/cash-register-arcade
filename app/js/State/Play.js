@@ -30,8 +30,7 @@ State.Play.prototype = {
         this.HANDANIMATIONTIME = 2000;
         this.ONTHEGROUND = false;
         this.canDoubleJump = true;
-        this.wasleft = false;
-        this.wasright = false;
+        this.isOnObject = false;
         
         this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundPlay');
         this.game.add.tileSprite(0, 0, 1280, 720, 'kassamain');
@@ -53,12 +52,24 @@ State.Play.prototype = {
                                                        .loop(); // durch 2 weil die beiden animationen nur den halben weg haben
         this.tweenhand.start();
         
-        //Correct Polygon Collision
+        //Setting up physics
         this.game.physics.startSystem(Phaser.Physics.P2JS);
         this.game.physics.p2.gravity.y = 1400;
         this.game.physics.p2.restitution = 0.2;
         this.game.physics.p2.setImpactEvents(true);
         
+        //Setting up player
+        this.player = this.game.add.sprite(1200, 300, 'player');
+        this.game.physics.p2.enable(this.player, false);
+        this.player.body.fixedRotation  = true;
+        this.player.body.addRectangle();
+        this.player.animations.add('run', [0, 1, 2, 3, 4, 5], 20, true);  //Animation geht nach rechts, für umdrehen der seite einfach this.player.scale.x *= -1;
+        this.player.animations.add('inair', [6], 20, true);
+        this.player.animations.add('stand', [0], 20, true);
+        
+        this.player.animations.play('run');
+        
+        //Additional Testing
         var weinflasche = this.game.add.sprite(300, 300, 'weinflasche');
         this.game.physics.p2.enable(weinflasche, true);
         weinflasche.body.fixedRotation  = true;
@@ -79,17 +90,7 @@ State.Play.prototype = {
         orangensaft.body.clearShapes();
         orangensaft.body.addPhaserPolygon('physicsData', 'orangensaft');
         orangensaft.body.collideWorldBounds = false;
-        
-        this.player = this.game.add.sprite(1200, 300, 'player');
-        this.game.physics.p2.enable(this.player, false);
-        this.player.body.fixedRotation  = true;
-        this.player.body.addRectangle();
-        this.player.animations.add('run', [0, 1, 2, 3, 4, 5], 20, true);  //Animation geht nach rechts, für umdrehen der seite einfach this.player.scale.x *= -1;
-        this.player.animations.add('inair', [6], 20, true);
-        
-        this.player.animations.play('run');
-        
-        
+                
         this.game.input.keyboard.addKeyCapture([
             Phaser.Keyboard.LEFT,
             Phaser.Keyboard.RIGHT,
@@ -121,8 +122,8 @@ State.Play.prototype = {
         this.groundblock.body.collides([objectsCollisionGroup, playerCollisionGroup]);
         
         this.player.body.setCollisionGroup(playerCollisionGroup);
-        this.player.body.collides([objectsCollisionGroup, groundCollisionGroup], this.onGround, this);
-        //this.player.body.collides(groundCollisionGroup, this.onGround, this);
+        this.player.body.collides(objectsCollisionGroup, this.onObject, this);
+        this.player.body.collides(groundCollisionGroup, this.onGround, this);
         
         this.game.physics.p2.updateBoundsCollisionGroup();
         
@@ -189,6 +190,12 @@ State.Play.prototype = {
         keyEsc = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
         keyEsc.onDown.add(this.backToMain, this);
         
+        keyLeft = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+        keyLeft.onDown.add(this.backToMain, this);
+        
+        keyRight = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+        keyRight.onDown.add(this.backToMain, this);
+        
         this.leftspeed = 0;
         this.rightspeed = 0;
     },
@@ -236,52 +243,140 @@ State.Play.prototype = {
         }*/
         
         //Reset the ability to double jump after player hit the ground
-        if(this.ONTHEGROUND) {
+        if(this.ONTHEGROUND || this.isOnObject) {
             this.canDoubleJump = true;
+            //this.isOnObject = false;
         }
+        /*
+        if(this.leftspeed === 0 || this.rightspeed === 0)
+        {
+            this.player.animations.play('stand');
+        }*/
+        
+        this.onGroundOrObject = this.ONTHEGROUND || this.isOnObject;
+        
         
         if (this.leftInputIsActive()) {
+            //Limit speed of movement
             if(this.leftspeed <= 400)
             {
                 this.leftspeed += 10;
             }
+            //Reset speed from other direction, so you do not have more than 0 speed at the beginning
             this.rightspeed = 0;
             
-            this.wasleft = true;
-            this.wasright = false;
+            //Move the player
             this.player.body.moveLeft(this.leftspeed);
+            
+            //Set animation
+            this.player.animations.play('run');
         } else if (this.rightInputIsActive()) {
+            //Limit speed of movement
             if(this.rightspeed <= 400)
             {
                 this.rightspeed += 10;
             }
+            //Reset speed from other direction, so you do not have more than 0 speed at the beginning
             this.leftspeed = 0;
             
-            this.wasright = true;
-            this.wasleft = false;
+            //Move the player
             this.player.body.moveRight(this.rightspeed);
+            
+            //Set animation
+            this.player.animations.play('run');
         } else {
-            //Prevent massive speed and movement after going in the same direction more than one time
+            //Prevent massive speed and movement after going in the same direction(pressing left button 2 times for short time) more than one time
             this.rightspeed = 0;
             this.leftspeed = 0;
+            
+            //If player is not moving left or right and |collides with/stands on| an object, set standing animation
+            if(this.isOnObject)
+            {
+                if(this.leftspeed === 0 || this.rightspeed === 0)
+                {
+                    this.player.animations.play('stand');
+                }
+            }
         }
         
         if (this.upInputIsActive(3)) {
-            if(this.ONTHEGROUND || this.canDoubleJump)
+            if(this.onGroundOrObject || this.canDoubleJump)
             {
                 this.player.body.data.applyForce([0, 1500], [0, 0]);
+                
                 //First time in this function INTHEGROUND is true
                 //After first jump action ONTHEGROUND is set to false
                 //Next time jump is pressed while being in air canDoubleJump becomes false
-                if(!this.ONTHEGROUND)
+                if(this.onGroundOrObject)
                 {
-                    this.canDoubleJump = false;
+                    //this.onGroundOrObject = false;
+                    this.player.animations.play('inair');
                 }
                 else {
+                    this.canDoubleJump = false;
+                }
+                
+                this.isOnObject = false;
+                this.ONTHEGROUND = false;
+            }
+            /*if(this.ONTHEGROUND || this.canDoubleJump || this.isOnObject)
+            {
+                this.player.body.data.applyForce([0, 1500], [0, 0]);
+                
+                //First time in this function INTHEGROUND is true
+                //After first jump action ONTHEGROUND is set to false
+                //Next time jump is pressed while being in air canDoubleJump becomes false
+                if(this.ONTHEGROUND || this.isOnObject)
+                {
+                    this.player.animations.play('inair');
+                }
+                else {
+                    this.canDoubleJump = false;
+                }
+                
+                this.isOnObject = false;
+                this.ONTHEGROUND = false;
+            }*/
+            /*
+            if(this.ONTHEGROUND || this.canDoubleJump)
+            {
+                this.player.body.data.applyForce([0, 1500], [0, 0]);
+                
+                //First time in this function INTHEGROUND is true
+                //After first jump action ONTHEGROUND is set to false
+                //Next time jump is pressed while being in air canDoubleJump becomes false
+                if(this.ONTHEGROUND)
+                {
                     this.ONTHEGROUND = false;
                     this.player.animations.play('inair');
                 }
+                else {
+                    this.canDoubleJump = false;
+                }
             }
+            if(this.isOnObject || this.canDoubleJump)
+            {
+                console.log("FROMOBJECT" + " CANDOUBLEJUMP " + this.canDoubleJump);
+                this.player.body.data.applyForce([0, 1500], [0, 0]);
+                
+                if(this.isOnObject)
+                {
+                    console.log("FROMOBJECT" + " CANDOUBLEJUMP " + this.canDoubleJump);
+                    this.isOnObject = false;
+                    this.player.animations.play('inair');
+                }
+                else {
+                    this.canDoubleJump = false;
+                }
+            }*/
+        }
+        
+        //Checks if player got bought = game over
+        if(this.player.x < 145)
+        {
+            //console.log(this.player.x);
+            //this.game.paused = true;
+            this.game.state.start('mainMenu');
         }
     },
     createObstacle: function() {
@@ -334,7 +429,13 @@ State.Play.prototype = {
     },
     onGround: function() {
         this.ONTHEGROUND = true;
+        this.isOnObject = false;
         this.player.animations.play('run');
         //this.player.reset(this.player.x, this.player.y, true);
+    },
+    onObject: function() {
+        this.ONTHEGROUND = false;
+        this.isOnObject = true;
+        this.player.animations.play('stand');
     }
 };
