@@ -31,6 +31,9 @@ State.Play.prototype = {
         this.ONTHEGROUND = false;
         this.canDoubleJump = true;
         this.isOnObject = false;
+        this.isRight = true;
+        this.isLeft = false;
+        
         
         this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundPlay');
         this.game.add.tileSprite(0, 0, 1280, 720, 'kassamain');
@@ -190,11 +193,11 @@ State.Play.prototype = {
         keyEsc = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
         keyEsc.onDown.add(this.backToMain, this);
         
-        keyLeft = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
-        keyLeft.onDown.add(this.backToMain, this);
+        keyLeft = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        keyLeft.onDown.add(this.onLeftPressed, this);
         
-        keyRight = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
-        keyRight.onDown.add(this.backToMain, this);
+        keyRight = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+        keyRight.onDown.add(this.onRightPressed, this);
         
         this.leftspeed = 0;
         this.rightspeed = 0;
@@ -232,8 +235,9 @@ State.Play.prototype = {
                     this.canDoubleJump = false;
                 }
             }
-        }
-
+        }*/
+        
+        /*
         for (var i = this.obstacles.length - 1; i >= 0; i--) {
             this.obstacles[i].body.velocity = -this.FORCE;
 
@@ -278,7 +282,6 @@ State.Play.prototype = {
             }
             //Reset speed from other direction, so you do not have more than 0 speed at the beginning
             this.leftspeed = 0;
-            
             //Move the player
             this.player.body.moveRight(this.rightspeed);
             
@@ -286,8 +289,22 @@ State.Play.prototype = {
             this.player.animations.play('run');
         } else {
             //Prevent massive speed and movement after going in the same direction(pressing left button 2 times for short time) more than one time
-            this.rightspeed = 0;
-            this.leftspeed = 0;
+            //BUG -- when you jump, but do not press the left or right button the speed resets. So when you are still moving after pressing one direction
+            //BUG -- and then jump, then press the same direction you slow down because your speeds got reset in this if. find a way to check if you are still the same direction
+            if(this.onGroundOrObject)
+            {   
+                this.rightspeed = 0;
+                this.leftspeed = 0;
+            }
+            /*
+            if(!this.isRight)
+            {
+                this.rightspeed = 0;
+            }
+            if(!this.isLeft)
+            {
+                this.leftspeed = 0;
+            }*/
             
             //If player is not moving left or right and |collides with/stands on| an object, set standing animation
             if(this.isOnObject)
@@ -298,12 +315,12 @@ State.Play.prototype = {
                 }
             }
         }
-        
+        //console.log(this.player.body.data.velocity[1]);
         if (this.upInputIsActive(3)) {
             if(this.onGroundOrObject || this.canDoubleJump)
             {
-                this.player.body.data.applyForce([0, 1500], [0, 0]);
-                
+                //this.player.body.data.applyForce([0, 1500], [0, 0]);
+                this.player.body.data.velocity[1] = 27;
                 //First time in this function INTHEGROUND is true
                 //After first jump action ONTHEGROUND is set to false
                 //Next time jump is pressed while being in air canDoubleJump becomes false
@@ -423,6 +440,22 @@ State.Play.prototype = {
         released |= this.game.input.activePointer.justReleased();
         
         return released;
+    },
+    onLeftPressed: function() {
+        if(!this.isLeft)
+        {
+            this.player.scale.x *= -1;
+            this.isLeft = true;
+            this.isRight = false;
+        }
+    },
+    onRightPressed: function() {
+        if(!this.isRight)
+        {
+            this.player.scale.x *= -1;
+            this.isRight = true;
+            this.isLeft = false;
+        }
     },
     backToMain: function() {
         this.game.state.start('mainMenu');
