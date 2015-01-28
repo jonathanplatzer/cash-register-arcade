@@ -419,7 +419,7 @@ State.Play.prototype = {
                 
                 if (this.obstacles[i].body.x < 0) {
                     this.obstacles[i].destroy();
-                    this.obstacles.pop(i);
+                    this.obstacles.splice(i, 1);
                 }
             }
             else {
