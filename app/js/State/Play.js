@@ -40,7 +40,7 @@ State.Play.prototype = {
         this.obstacles = [];
         
         //Obstacle Spawn Timer
-        this.game.time.events.loop(Phaser.Timer.SECOND * this.OBSTACLESPAWN_INTERVAL, this.createObstacle, this);
+        this.obstacleTimer = this.game.time.events.loop(Phaser.Timer.SECOND * this.OBSTACLESPAWN_INTERVAL, this.createObstacle, this);
         
         //Keyboard initialisation
         this.game.input.keyboard.addKeyCapture([
@@ -63,12 +63,17 @@ State.Play.prototype = {
         
         keyPause = this.game.input.keyboard.addKey(Phaser.Keyboard.P);
         keyPause.onDown.add(this.onPauseGame, this);
-        
+
         this.game.input.keyboard.addCallbacks(this, null, null, this.keyPress);  //Capture all keys to one method
         
         //this.game.input.keyboard.addKeyCapture([Phaser.Keyboard.BACKSPACE]); // keyCode backspace: 8
         delKey = this.game.input.keyboard.addKey(Phaser.Keyboard.BACKSPACE);
         delKey.onDown.add(this.deleteLetter, this);
+        
+        //Sound initialisation
+        this.registerSound = this.game.add.audio('registerSound', 0.2);
+        this.registerSound.defaultVolume = 0.2;
+        this.game.onSfxStatusChange.add(this.game.defaultSfxStatusChangeHandler, this.registerSound);
         
         //Display Initialisation
         this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundPlay');
@@ -221,6 +226,7 @@ State.Play.prototype = {
                         this.obstacles[i].isBought = true;
                         this.highscore += 10;
                         this.highscoreDisplay.setText(this.highscore);
+                        this.registerSound.play();
                     }
                     
                     if (this.obstacles[i].body.x < -140) {
@@ -233,11 +239,13 @@ State.Play.prototype = {
             //Checks if player got bought = game over
             if(this.player.x < this.BUYPOINT)
             {
+                this.registerSound.play();
                 this.onGameOver();
             }
             
             //Speed Increase Test
-            this.OBSTACLE_SPEED = this.OBSTACLE_SPEED * 1.0001;
+            this.OBSTACLE_SPEED = this.OBSTACLE_SPEED * 1.0002;
+            this.obstacleTimer.delay = this.obstacleTimer.delay / 1.0002;
         }
         else { //If gameover is true stop some gameplay routines
             this.player.animations.paused = true;
@@ -319,6 +327,7 @@ State.Play.prototype = {
         }
     },
     backToMain: function() {
+        this.game.paused = false;
         this.game.state.start('mainMenu');
     },
     onGround: function() {
@@ -355,6 +364,7 @@ State.Play.prototype = {
                 this.playernametext.setText(this.playername);
             }
         }
+        //this.registerSound.play();
     },
     deleteLetter: function() {
         if(this.gameover)

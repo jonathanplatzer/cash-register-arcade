@@ -109,6 +109,18 @@
             "overwrite": false,
             "frameWidth": 94,
             "frameHeight": 64
+        },
+        {
+            "type": "audio",
+            "key": "registerSound",
+            "urls": ["assets/sfx/register.ogg"],
+            "overwrite": false
+        },
+        {
+            "type": "audio",
+            "key": "registerSound",
+            "urls": ["assets/sfx/jump.ogg"],
+            "overwrite": false
         }
     ],
     "highscore": [

@@ -78,28 +78,24 @@ State.OptionMenu.prototype = {
         
         if(this.game.sfx) {
             this.sprite_sfx_indicator.frame = 0;
-            this.game.buttonoversfx.volume = 0.5;
-            this.game.buttonselectsfx.volume = 0.5;
-        }
-        else {
+        } else {
             this.sprite_sfx_indicator.frame = 1;
-            this.game.buttonoversfx.volume = 0;
-            this.game.buttonselectsfx.volume = 0;
         }
+
+        this.game.onSfxStatusChange.dispatch(this.game.sfx);
     },
     toggleTheme: function()
     {
-        if(isNaN(this.game.theme)){
+        if (isNaN(this.game.theme)) {
             this.game.theme=0;
         }
-        else{
+        else {
             this.game.theme++;
         }
         console.log(this.game.theme);
     },
     toMainMenu: function()
     {
-
         this.game.state.start('mainMenu');
     }
 };
