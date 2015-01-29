@@ -95,6 +95,12 @@
             "key": "groundblock",
             "url": "assets/img/groundblock.png",
             "overwrite": false
+        },
+        {
+            "type": "audio",
+            "key": "registerSound",
+            "urls": ["assets/sfx/register.ogg"],
+            "overwrite": false
         }
     ],
     "highscore": [

@@ -38,7 +38,7 @@ State.Play.prototype = {
         this.gameover = false;
         
         //Obstacle Spawn Timer
-        this.game.time.events.loop(Phaser.Timer.SECOND * this.OBSTACLESPAWN_INTERVAL, this.createObstacle, this);
+        this.obstacleTimer = this.game.time.events.loop(Phaser.Timer.SECOND * this.OBSTACLESPAWN_INTERVAL, this.createObstacle, this);
         
         //Keyboard initialisation
         this.game.input.keyboard.addKeyCapture([
@@ -61,6 +61,8 @@ State.Play.prototype = {
         
         keyPause = this.game.input.keyboard.addKey(Phaser.Keyboard.P);
         keyPause.onDown.add(this.onPauseGame, this);
+
+        this.registerSound = this.game.add.audio('registerSound', 0.2);
         
         //Display Initialisation
         this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundPlay');
@@ -214,6 +216,7 @@ State.Play.prototype = {
                         this.obstacles[i].isBought = true;
                         this.highscore += 10;
                         this.highscoreDisplay.setText(this.highscore);
+                        this.registerSound.play();
                     }
                     
                     if (this.obstacles[i].body.x < -140) {
@@ -231,7 +234,8 @@ State.Play.prototype = {
             }
             
             //Speed Increase Test
-            this.OBSTACLE_SPEED = this.OBSTACLE_SPEED * 1.0001;
+            this.OBSTACLE_SPEED = this.OBSTACLE_SPEED * 1.0002;
+            this.obstacleTimer.delay = this.obstacleTimer.delay / 1.0002;
         }
     },
     createObstacle: function() {
@@ -306,6 +310,7 @@ State.Play.prototype = {
         }
     },
     backToMain: function() {
+        this.game.paused = false;
         this.game.state.start('mainMenu');
     },
     onGround: function() {
@@ -322,6 +327,7 @@ State.Play.prototype = {
         this.game.paused = !this.game.paused;
     },
     onGameOver: function() {
+        this.registerSound.play();
         this.buttonTest = this.game.add.button(this.game.world.centerX, this.game.world.centerY, 'buttonOptionen', this.onTestBT, this, 1, 0);
         this.buttonTest.anchor.setTo(0.5, 0.5);
     },
