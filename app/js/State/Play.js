@@ -34,6 +34,9 @@ State.Play.prototype = {
         this.OBSTACLE_SPEED = 8;
         this.OBSTACLESPAWN_INTERVAL = 3;
         this.highscore = 0;
+        this.playername = "";
+        this.gameover = false;
+        this.playernamelength = 15;
         this.obstacles = [];
         
         //Obstacle Spawn Timer
@@ -61,6 +64,12 @@ State.Play.prototype = {
         keyPause = this.game.input.keyboard.addKey(Phaser.Keyboard.P);
         keyPause.onDown.add(this.onPauseGame, this);
         
+        this.game.input.keyboard.addCallbacks(this, null, null, this.keyPress);  //Capture all keys to one method
+        
+        //this.game.input.keyboard.addKeyCapture([Phaser.Keyboard.BACKSPACE]); // keyCode backspace: 8
+        delKey = this.game.input.keyboard.addKey(Phaser.Keyboard.BACKSPACE);
+        delKey.onDown.add(this.deleteLetter, this);
+        
         //Display Initialisation
         this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundPlay');
         this.game.add.tileSprite(0, 0, 1280, 720, 'kassamain');
@@ -74,8 +83,8 @@ State.Play.prototype = {
         this.register.anchor.setTo(0, 1);
         this.register.scale.setTo(0.2);
         
-        this.style = { font: "20px Arial", fill: "#000000", align: "right" };
-        this.highscoreDisplay = this.game.add.text(295, 432, ""+this.highscore, this.style);
+        this.highscorestyle = { font: "20px Arial", fill: "#000000", align: "right" };
+        this.highscoreDisplay = this.game.add.text(295, 432, ""+this.highscore, this.highscorestyle);
         
         //Setting up physics
         this.game.physics.startSystem(Phaser.Physics.P2JS);
@@ -131,7 +140,6 @@ State.Play.prototype = {
             }
             
             this.onGroundOrObject = this.isOnGround || this.isOnObject;
-            
             
             if (this.leftInputIsActive()) {
                 //Limit speed of movement
@@ -225,32 +233,38 @@ State.Play.prototype = {
             //Checks if player got bought = game over
             if(this.player.x < this.BUYPOINT)
             {
-                this.gameover = true;
                 this.onGameOver();
             }
             
             //Speed Increase Test
             this.OBSTACLE_SPEED = this.OBSTACLE_SPEED * 1.0001;
         }
+        else { //If gameover is true stop some gameplay routines
+            this.player.animations.paused = true;
+            this.tweenhand.pause();
+        }
     },
     createObstacle: function() {
-        var randomObjectName = this.game.obstacleCatalog[Math.floor(Math.random()*this.game.obstacleCatalog.length)];
-        
-        var height = this.game.cache.getImage(randomObjectName).height;
-        
-        var randomObjectSprite = this.game.add.sprite(1300, this.game.height-height/2-36, randomObjectName); // -height/2 because anchor is 0.5 0.5 and object height/2 - game height aligns objects correctly || -36 because height of groundblock
-        this.game.physics.p2.enable(randomObjectSprite, false);
-        //randomObjectSprite.body.fixedRotation  = true;
-        randomObjectSprite.body.clearShapes();
-        randomObjectSprite.body.addPhaserPolygon('physicsData', randomObjectName);
-        randomObjectSprite.body.collideWorldBounds = false;
-        randomObjectSprite.body.mass = 1000;
-        //randomObjectSprite.body.dynamic = false;
-        
-        randomObjectSprite.body.setCollisionGroup(this.objectsCollisionGroup);
-        randomObjectSprite.body.collides([this.objectsCollisionGroup, this.playerCollisionGroup, this.groundCollisionGroup]);
-        
-        this.obstacles.push(randomObjectSprite);
+        if(!this.gameover)
+        {
+            var randomObjectName = this.game.obstacleCatalog[Math.floor(Math.random()*this.game.obstacleCatalog.length)];
+            
+            var height = this.game.cache.getImage(randomObjectName).height;
+            
+            var randomObjectSprite = this.game.add.sprite(1300, this.game.height-height/2-36, randomObjectName); // -height/2 because anchor is 0.5 0.5 and object height/2 - game height aligns objects correctly || -36 because height of groundblock
+            this.game.physics.p2.enable(randomObjectSprite, false);
+            randomObjectSprite.body.fixedRotation  = true;
+            randomObjectSprite.body.clearShapes();
+            randomObjectSprite.body.addPhaserPolygon('physicsData', randomObjectName);
+            randomObjectSprite.body.collideWorldBounds = false;
+            randomObjectSprite.body.mass = 1000;
+            //randomObjectSprite.body.dynamic = false;
+            
+            randomObjectSprite.body.setCollisionGroup(this.objectsCollisionGroup);
+            randomObjectSprite.body.collides([this.objectsCollisionGroup, this.playerCollisionGroup, this.groundCollisionGroup]);
+            
+            this.obstacles.push(randomObjectSprite);
+        }
     },
     leftInputIsActive: function() {
         var isActive = false;
@@ -321,10 +335,39 @@ State.Play.prototype = {
         this.game.paused = !this.game.paused;
     },
     onGameOver: function() {
-        this.buttonTest = this.game.add.button(this.game.world.centerX, this.game.world.centerY, 'buttonOptionen', this.onTestBT, this, 1, 0);
-        this.buttonTest.anchor.setTo(0.5, 0.5);
+        this.gameover = true;
+        
+        this.playerinputfield = this.game.add.sprite(0, 0, 'gameoverscreen');
+        
+        this.playernamestyle = { font: "30px Arial", fill: "#FFFFFF", align: "center" };
+        this.playernametext = this.game.add.text(this.game.world.centerX - 330, this.game.world.centerY, this.playername, this.playernamestyle );
+        this.playernametext.anchor.setTo(0, 0.5);
+        
+        this.buttonSubmitHighscore = this.game.add.button(this.game.world.centerX + 290, this.game.world.centerY, 'buttonSubmitHighscore', this.onSubmitHighscore, this, 1, 0);
+        this.buttonSubmitHighscore.anchor.setTo(0.5, 0.5);
     },
-    onTestBT: function() {
-        console.log("BUTTON CLICK");
+    keyPress: function(key) {
+        if(this.gameover)
+        {
+            if(this.playername.length < this.playernamelength) //playnamelength restriction 
+            {
+                this.playername += key;
+                this.playernametext.setText(this.playername);
+            }
+        }
+    },
+    deleteLetter: function() {
+        if(this.gameover)
+        {
+            this.playername = this.playername.substring(0, this.playername.length - 1);
+            this.playernametext.setText(this.playername);
+        }
+    },
+    onSubmitHighscore: function() {
+        if(this.playername !== "")
+        {
+            console.log("SUBMIT");
+            this.game.state.start('mainMenu');
+        }
     }
 };

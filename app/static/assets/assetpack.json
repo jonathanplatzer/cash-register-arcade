@@ -95,6 +95,20 @@
             "key": "groundblock",
             "url": "assets/img/groundblock.png",
             "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "gameoverscreen",
+            "url": "assets/img/gameoverscreen.png",
+            "overwrite": false
+        },
+        {
+            "type": "spritesheet",
+            "key": "buttonSubmitHighscore",
+            "url": "assets/img/buttonSubmitHighscore.png",
+            "overwrite": false,
+            "frameWidth": 94,
+            "frameHeight": 64
         }
     ],
     "highscore": [
