@@ -23,6 +23,7 @@ State.Highscore.prototype = {
         this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundHighscore');
         this.graphics = this.game.add.graphics(0, 0);
         this.graphics.alpha = 0.9;
+        this.apiurl = "/api/highscore/";
         
 		//Set text style
 		this.style = { font: "40px Arial", fill: "#ffffff", align: "center" };
@@ -59,7 +60,7 @@ State.Highscore.prototype = {
 		//Get highscore data
 		var xmlHttp = null;
 		xmlHttp = new XMLHttpRequest();
-		xmlHttp.open( "GET", "/api/highscore/", false );
+		xmlHttp.open( "GET", this.apiurl, false );
 		xmlHttp.send( null );
 		this.highscoreData = JSON.parse(xmlHttp.responseText);
 		this.highscoreData.highscore.sort(this.compare);

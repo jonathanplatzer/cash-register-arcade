@@ -263,7 +263,7 @@ State.Play.prototype = {
             
             var height = this.game.cache.getImage(randomObjectName).height;
             
-            var randomObjectSprite = this.game.add.sprite(1300, this.game.height-height/2-36, randomObjectName); // -height/2 because anchor is 0.5 0.5 and object height/2 - game height aligns objects correctly || -36 because height of groundblock
+            var randomObjectSprite = this.game.add.sprite(1550, this.game.height-height/2-36, randomObjectName); // -height/2 because anchor is 0.5 0.5 and object height/2 - game height aligns objects correctly || -36 because height of groundblock
             this.game.physics.p2.enable(randomObjectSprite, false);
             randomObjectSprite.body.fixedRotation  = true;
             randomObjectSprite.body.clearShapes();
@@ -353,7 +353,11 @@ State.Play.prototype = {
         this.playerinputfield = this.game.add.sprite(0, 0, 'gameoverscreen');
         
         this.playernamestyle = { font: "30px Arial", fill: "#FFFFFF", align: "center" };
-        this.playernametext = this.game.add.text(this.game.world.centerX - 330, this.game.world.centerY, this.playername, this.playernamestyle );
+        
+        this.nametext = this.game.add.text(this.game.world.centerX - 330, this.game.world.centerY + 2, "Name:", this.playernamestyle );
+        this.nametext.anchor.setTo(0, 0.5);
+        
+        this.playernametext = this.game.add.text(this.game.world.centerX - 230, this.game.world.centerY + 2, this.playername, this.playernamestyle );
         this.playernametext.anchor.setTo(0, 0.5);
         
         this.buttonSubmitHighscore = this.game.add.button(this.game.world.centerX + 290, this.game.world.centerY, 'buttonSubmitHighscore', this.onSubmitHighscore, this, 1, 0);
