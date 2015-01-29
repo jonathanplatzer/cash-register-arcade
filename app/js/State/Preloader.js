@@ -59,12 +59,26 @@ State.Preloader.prototype = {
         this.game.musicRunning = false;
         this.game.music = true;
         this.game.sfx = true;
-        
+
+        this.game.defaultSfxStatusChangeHandler = function(status) {
+            if (status) {
+                this.volume = this.defaultVolume;
+            } else {
+                this.volume = 0;
+            }
+        };
+
+        //Event for SFX status changes
+        this.game.onSfxStatusChange = new Phaser.Signal();
+
         //SFX Init
-        this.game.buttonoversfx = this.add.audio('buttonoversfx');
-        this.game.buttonselectsfx = this.add.audio('buttonselectsfx');
-        this.game.buttonoversfx.volume = 0.5;
-        this.game.buttonselectsfx.volume = 0.5;
+        this.game.buttonoversfx = this.add.audio('buttonoversfx', 0.5);
+        this.game.buttonoversfx.defaultVolume = 0.5;
+        this.game.onSfxStatusChange.add(this.game.defaultSfxStatusChangeHandler, this.game.buttonoversfx);
+
+        this.game.buttonselectsfx = this.add.audio('buttonselectsfx', 0.5);
+        this.game.buttonselectsfx.defaultVolume = 0.5;
+        this.game.onSfxStatusChange.add(this.game.defaultSfxStatusChangeHandler, this.game.buttonselectsfx);
     },
     loadCompleted: function(key) {
         this.completed = true;

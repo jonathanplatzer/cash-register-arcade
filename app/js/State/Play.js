@@ -63,6 +63,8 @@ State.Play.prototype = {
         keyPause.onDown.add(this.onPauseGame, this);
 
         this.registerSound = this.game.add.audio('registerSound', 0.2);
+        this.registerSound.defaultVolume = 0.2;
+        this.game.onSfxStatusChange.add(this.game.defaultSfxStatusChangeHandler, this.registerSound);
         
         //Display Initialisation
         this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundPlay');
