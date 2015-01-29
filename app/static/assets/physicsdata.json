@@ -1,0 +1,56 @@
+{
+    "player":[
+      {
+        "isSensor": false,
+        "filter": {
+            "group": 0,
+            "categoryBits": 1,
+            "maskBits": 65535
+        },
+        "polygons":[ 
+            []
+        ]
+      }
+    ],
+    "weinflasche":[
+      {
+        "isSensor": false,
+        "filter": {
+            "group": 0,
+            "categoryBits": 1,
+            "maskBits": 65535
+        },
+        "polygons":[ 
+            [0, 0, 160, 0, 195, 27, 195, 53, 160, 80, 0, 80], [195, 27, 295, 27, 295, 53, 195, 53]
+        ]
+      }
+    ],
+    "brot":[
+      {
+        "isSensor": false,
+        "filter": {
+            "group": 0,
+            "categoryBits": 1,
+            "maskBits": 65535
+        },
+        "polygons":[ 
+            [1, 44, 27, 21  ,  70, 5  ,  170, 5  , 220, 23, 240, 44, 240, 60],
+            [240, 60  ,  215, 110 ,  20, 110  ,  1, 60, 1, 44]
+        ]
+      }
+    ],
+    "orangensaft":[
+      {
+        "isSensor": false,
+        "filter": {
+            "group": 0,
+            "categoryBits": 1,
+            "maskBits": 65535
+        },
+        "polygons":[
+            [65, 0, 72, 33, 72, 160, 0, 160, 0, 33, 6, 0]
+        ]
+      }
+    ]
+}
+

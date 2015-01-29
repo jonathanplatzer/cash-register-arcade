@@ -32,19 +32,30 @@ State.OptionMenu.prototype = {
     create: function() {
         this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundOptionMenu');
         
-        this.button_theme = this.game.add.button(this.game.world.centerX, this.game.world.centerY - 180, 'button_theme',this.toggleTheme, this, 1, 0);
-        this.button_music = this.game.add.button(this.game.world.centerX, this.game.world.centerY - 10, 'button_music',this.toggleMusic, this, 1, 0);
+        //Button Init
+        this.buttonTheme = this.game.add.button(this.game.world.centerX, this.game.world.centerY - 180, 'buttonTheme',this.toggleTheme, this, 1, 0);
+        this.buttonMusic = this.game.add.button(this.game.world.centerX, this.game.world.centerY - 10, 'buttonMusic',this.toggleMusic, this, 1, 0);
         this.sprite_music_indicator = this.game.add.sprite(this.game.world.centerX + 180, this.game.world.centerY - 10, 'buttonVoiceIndicator', this.musicFrame);
-        this.button_sound = this.game.add.button(this.game.world.centerX, this.game.world.centerY + 10, 'button_sound',this.toggleSfx, this, 1, 0);
+        this.buttonSfx = this.game.add.button(this.game.world.centerX, this.game.world.centerY + 10, 'buttonSfx',this.toggleSfx, this, 1, 0);
         this.sprite_sfx_indicator = this.game.add.sprite(this.game.world.centerX + 180, this.game.world.centerY + 10, 'buttonVoiceIndicator', this.sfxFrame);
-        this.button_back = this.game.add.button(this.game.world.centerX, this.game.world.centerY + 180, 'button_back',this.toMainMenu, this, 1, 0);
+        this.buttonBack = this.game.add.button(this.game.world.centerX, this.game.world.centerY + 180, 'buttonBack',this.toMainMenu, this, 1, 0);
         
-        this.button_theme.anchor.setTo(0.5, 1);
-        this.button_music.anchor.setTo(0.5, 1);
+        this.buttonTheme.anchor.setTo(0.5, 1);
+        this.buttonMusic.anchor.setTo(0.5, 1);
         this.sprite_music_indicator.anchor.setTo(0, 1);
-        this.button_sound.anchor.setTo(0.5, 0);
+        this.buttonSfx.anchor.setTo(0.5, 0);
         this.sprite_sfx_indicator.anchor.setTo(0, 0);
-        this.button_back.anchor.setTo(0.5, 0);
+        this.buttonBack.anchor.setTo(0.5, 0);
+        
+        //SFX Init
+        this.buttonTheme.setOverSound(this.game.buttonoversfx);
+        this.buttonMusic.setOverSound(this.game.buttonoversfx);
+        this.buttonSfx.setOverSound(this.game.buttonoversfx);
+        this.buttonBack.setOverSound(this.game.buttonoversfx);
+        this.buttonTheme.setDownSound(this.game.buttonselectsfx);
+        this.buttonMusic.setDownSound(this.game.buttonselectsfx);
+        this.buttonSfx.setDownSound(this.game.buttonselectsfx);
+        this.buttonBack.setDownSound(this.game.buttonselectsfx);
     },
     update: function() {
     },
@@ -67,9 +78,13 @@ State.OptionMenu.prototype = {
         
         if(this.game.sfx) {
             this.sprite_sfx_indicator.frame = 0;
+            this.game.buttonoversfx.volume = 0.5;
+            this.game.buttonselectsfx.volume = 0.5;
         }
         else {
             this.sprite_sfx_indicator.frame = 1;
+            this.game.buttonoversfx.volume = 0;
+            this.game.buttonselectsfx.volume = 0;
         }
     },
     toggleTheme: function()
