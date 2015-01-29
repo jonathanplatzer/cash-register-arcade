@@ -17,7 +17,7 @@ State.Play.prototype = {
         this.load.image('block', '/assets/img/block.png');
         this.game.load.physics('physicsData', 'assets/physicsdata.json');
     },
-    create: function() {        
+    create: function() {
         //Define movement constants
         this.HANDANIMATIONTIME = 2000;
         this.MAX_SPEED = 400;
@@ -120,51 +120,6 @@ State.Play.prototype = {
         this.player.body.collides(this.groundCollisionGroup, this.onGround, this);
         
         this.game.physics.p2.updateBoundsCollisionGroup();
-        
-        /*
-        var weinflasche = this.game.add.sprite(600, 300, 'weinflasche');
-        this.game.physics.p2.enable(weinflasche, true);
-        weinflasche.body.fixedRotation  = true;
-        weinflasche.body.clearShapes();
-        weinflasche.body.addPhaserPolygon('physicsData', 'weinflasche');
-        weinflasche.body.collideWorldBounds = false;
-        weinflasche.body.setCollisionGroup(this.objectsCollisionGroup);
-        weinflasche.body.collides([this.objectsCollisionGroup, this.playerCollisionGroup, this.groundCollisionGroup]);
-        */
-        /*
-        //Additional Testing
-        var weinflasche = this.game.add.sprite(600, 300, 'weinflasche');
-        this.game.physics.p2.enable(weinflasche, true);
-        weinflasche.body.fixedRotation  = true;
-        weinflasche.body.clearShapes();
-        weinflasche.body.addPhaserPolygon('physicsData', 'weinflasche');
-        weinflasche.body.collideWorldBounds = false;
-        
-        var brot = this.game.add.sprite(900, 300, 'brot');
-        this.game.physics.p2.enable(brot, true);
-        brot.body.fixedRotation  = true;
-        brot.body.clearShapes();
-        brot.body.addPhaserPolygon('physicsData', 'brot');
-        brot.body.collideWorldBounds = false;
-        
-        var orangensaft = this.game.add.sprite(1200, 300, 'orangensaft');
-        this.game.physics.p2.enable(orangensaft, true);
-        orangensaft.body.fixedRotation  = true;
-        orangensaft.body.clearShapes();
-        orangensaft.body.addPhaserPolygon('physicsData', 'orangensaft');
-        orangensaft.body.collideWorldBounds = false;
-        */
-        
-        
-        /*
-        weinflasche.body.setCollisionGroup(objectsCollisionGroup);
-        brot.body.setCollisionGroup(objectsCollisionGroup);
-        orangensaft.body.setCollisionGroup(objectsCollisionGroup);
-        
-        weinflasche.body.collides([objectsCollisionGroup, playerCollisionGroup, groundCollisionGroup]);
-        brot.body.collides([objectsCollisionGroup, playerCollisionGroup, groundCollisionGroup]);
-        orangensaft.body.collides([objectsCollisionGroup, playerCollisionGroup, groundCollisionGroup]);
-        */
     },
     update: function() {
         if(!this.gameover)
