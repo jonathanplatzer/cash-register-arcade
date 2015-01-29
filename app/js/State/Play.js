@@ -36,7 +36,7 @@ State.Play.prototype = {
         this.highscore = 0;
         this.playername = "";
         this.gameover = false;
-        this.playernamelength = 15;
+        this.playernamelength = 20;
         this.obstacles = [];
         
         //Obstacle Spawn Timer
@@ -74,6 +74,9 @@ State.Play.prototype = {
         this.registerSound = this.game.add.audio('registerSound', 0.2);
         this.registerSound.defaultVolume = 0.2;
         this.game.onSfxStatusChange.add(this.game.defaultSfxStatusChangeHandler, this.registerSound);
+        this.jumpSound = this.game.add.audio('jumpSound', 0.2);
+        this.jumpSound.defaultVolume = 0.2;
+        this.game.onSfxStatusChange.add(this.game.defaultSfxStatusChangeHandler, this.jumpSound);
         
         //Display Initialisation
         this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundPlay');
@@ -197,6 +200,7 @@ State.Play.prototype = {
                 if(this.onGroundOrObject || this.canDoubleJump)
                 {
                     //this.player.body.data.applyForce([0, 1500], [0, 0]);
+                    this.jumpSound.play();
                     this.player.body.data.velocity[1] = this.JUMP_SPEED;
                     //First time in this function INTHEGROUND is true
                     //After first jump action isOnGround is set to false

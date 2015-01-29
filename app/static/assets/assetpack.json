@@ -118,7 +118,7 @@
         },
         {
             "type": "audio",
-            "key": "registerSound",
+            "key": "jumpSound",
             "urls": ["assets/sfx/jump.ogg"],
             "overwrite": false
         }
