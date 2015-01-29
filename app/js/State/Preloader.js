@@ -54,7 +54,7 @@ State.Preloader.prototype = {
         
         //Music Init
         this.game.backgroundmusic = this.add.audio('backgroundMusic');
-        this.game.backgroundmusic.volume = 0.0;
+        this.game.backgroundmusic.volume = 0.5;
         this.game.backgroundmusic.loop = true;
         this.game.musicRunning = false;
         this.game.music = true;
@@ -63,8 +63,8 @@ State.Preloader.prototype = {
         //SFX Init
         this.game.buttonoversfx = this.add.audio('buttonoversfx');
         this.game.buttonselectsfx = this.add.audio('buttonselectsfx');
-        this.game.buttonoversfx.volume = 0.0;
-        this.game.buttonselectsfx.volume = 0.0;
+        this.game.buttonoversfx.volume = 0.5;
+        this.game.buttonselectsfx.volume = 0.5;
     },
     loadCompleted: function(key) {
         this.completed = true;
