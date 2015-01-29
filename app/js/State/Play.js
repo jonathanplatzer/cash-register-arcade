@@ -35,6 +35,7 @@ State.Play.prototype = {
         this.OBSTACLESPAWN_INTERVAL = 3;
         this.highscore = 0;
         this.obstacles = [];
+        this.gameover = false;
         
         //Obstacle Spawn Timer
         this.game.time.events.loop(Phaser.Timer.SECOND * this.OBSTACLESPAWN_INTERVAL, this.createObstacle, this);
