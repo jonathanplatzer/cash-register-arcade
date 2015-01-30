@@ -367,7 +367,7 @@ State.Play.prototype = {
     keyPress: function(key) {
         if(this.gameover)
         {
-            if(this.playername.length < this.playernamelength) //playnamelength restriction 
+            if(this.playername.length < this.playernamelength && key.charCodeAt(0) > 0x20) //playnamelength restriction 
             {
                 this.playername += key;
                 this.playernametext.setText(this.playername);
