@@ -389,6 +389,7 @@ State.Play.prototype = {
             
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.open("POST", this.apiurl);
+            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xmlhttp.send("name=" + encodeURIComponent(this.playername) + "&score=" + encodeURIComponent(this.highscore));
             
             this.game.state.start('mainMenu');
