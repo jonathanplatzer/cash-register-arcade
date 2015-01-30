@@ -37,6 +37,7 @@ State.Play.prototype = {
         this.playername = "";
         this.gameover = false;
         this.playernamelength = 20;
+        this.apiurl = "http://cra.throughotherey.es/api/highscore";
         this.obstacles = [];
         
         //Obstacle Spawn Timer
@@ -385,6 +386,11 @@ State.Play.prototype = {
         if(this.playername !== "")
         {
             console.log("SUBMIT");
+            
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("POST", this.apiurl);
+            xmlhttp.send("name=" + encodeURIComponent(this.playername) + "&score=" + encodeURIComponent(this.highscore));
+            
             this.game.state.start('mainMenu');
         }
     }

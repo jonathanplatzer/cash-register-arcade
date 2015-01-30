@@ -23,7 +23,7 @@ State.Highscore.prototype = {
         this.game.add.tileSprite(0, 0, 1280, 720, 'backgroundHighscore');
         this.graphics = this.game.add.graphics(0, 0);
         this.graphics.alpha = 0.9;
-        this.apiurl = "/api/highscore/";
+        this.apiurl = "http://cra.throughotherey.es/api/highscore";
         
 		//Set text style
 		this.style = { font: "40px Arial", fill: "#ffffff", align: "center" };
@@ -63,7 +63,7 @@ State.Highscore.prototype = {
 		xmlHttp.open( "GET", this.apiurl, false );
 		xmlHttp.send( null );
 		this.highscoreData = JSON.parse(xmlHttp.responseText);
-		this.highscoreData.highscore.sort(this.compare);
+		this.highscoreData.sort(this.compare);
 		
 		this.drawHighscore();
 	},
@@ -86,7 +86,7 @@ State.Highscore.prototype = {
 	},
 	
 	onHighscoreDown: function() {
-		if(this.obergrenze < this.highscoreData.highscore.length)
+		if(this.obergrenze < this.highscoreData.length)
 		{
 			this.obergrenze += 9;
 			this.untergrenze += 9;
@@ -105,7 +105,7 @@ State.Highscore.prototype = {
 		for(i = this.untergrenze; i < this.obergrenze; i++)
 		{
 			//Wenn nicht 10 Elemente auf einmal angezeigt werden
-			if(i >= this.highscoreData.highscore.length)
+			if(i >= this.highscoreData.length)
 			{
 				break;
 			}
@@ -117,8 +117,8 @@ State.Highscore.prototype = {
         
 			//"Score: " + this.highscoreData.highscore[i].score
 			this.textData.push(this.game.add.text(240, y, (i + 1), this.style));
-			this.textData.push(this.game.add.text(380, y, this.highscoreData.highscore[i].player, this.style));
-			this.textData.push(this.game.add.text(1000, y, this.highscoreData.highscore[i].score, this.style));
+			this.textData.push(this.game.add.text(380, y, this.highscoreData[i].name, this.style));
+			this.textData.push(this.game.add.text(1000, y, this.highscoreData[i].score, this.style));
 			y += 66;
 		}
 	},
