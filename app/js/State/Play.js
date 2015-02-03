@@ -71,11 +71,11 @@ State.Play.prototype = {
         delKey.onDown.add(this.deleteLetter, this);
 
         //Sound initialisation
-        this.registerSound = this.game.add.audio('registerSound', (this.game.sfx) ? 0.2 : 0);
-        this.registerSound.defaultVolume = 0.2;
+        this.registerSound = this.game.add.audio('registerSound', (this.game.sfx) ? 1 : 0);
+        this.registerSound.defaultVolume = 0.4;
         this.game.onSfxStatusChange.add(this.game.defaultSfxStatusChangeHandler, this.registerSound);
-        this.jumpSound = this.game.add.audio('jumpSound', (this.game.sfx) ? 0.2 : 0);
-        this.jumpSound.defaultVolume = 0.2;
+        this.jumpSound = this.game.add.audio('jumpSound', (this.game.sfx) ? 1 : 0);
+        this.jumpSound.defaultVolume = 0.4;
         this.game.onSfxStatusChange.add(this.game.defaultSfxStatusChangeHandler, this.jumpSound);
 
         //Display Initialisation

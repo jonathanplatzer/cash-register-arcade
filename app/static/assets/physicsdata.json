@@ -51,6 +51,45 @@
             [65, 0, 72, 33, 72, 160, 0, 160, 0, 33, 6, 0]
         ]
       }
+    ],
+    "marmelade":[
+      {
+        "isSensor": false,
+        "filter": {
+            "group": 0,
+            "categoryBits": 1,
+            "maskBits": 65535
+        },
+        "polygons":[
+            [0, 0 ,75, 0, 75, 100, 0, 100]
+        ]
+      }
+    ],
+    "kuerbis":[
+      {
+        "isSensor": false,
+        "filter": {
+            "group": 0,
+            "categoryBits": 1,
+            "maskBits": 65535
+        },
+        "polygons":[
+            [71, 51, 110, 8, 125, 8, 133, 50, 171, 72, 176, 120, 140, 150, 30, 150, 13, 120, 10, 87, 34, 58]
+        ]
+      }
+    ],
+    "korb":[
+      {
+        "isSensor": false,
+        "filter": {
+            "group": 0,
+            "categoryBits": 1,
+            "maskBits": 65535
+        },
+        "polygons":[
+            [159, 10, 182, 18, 212, 76, 47, 76, 76, 18, 103, 10], [244, 76, 203, 184, 55, 184, 14, 76]
+        ]
+      }
     ]
 }
 

@@ -54,7 +54,7 @@ State.Preloader.prototype = {
         
         //Music Init
         this.game.backgroundmusic = this.add.audio('backgroundMusic');
-        this.game.backgroundmusic.volume = 0.5;
+        this.game.backgroundmusic.volume = 1;
         this.game.backgroundmusic.loop = true;
         this.game.musicRunning = false;
         this.game.music = true;
@@ -72,12 +72,12 @@ State.Preloader.prototype = {
         this.game.onSfxStatusChange = new Phaser.Signal();
 
         //SFX Init
-        this.game.buttonoversfx = this.add.audio('buttonoversfx', 0.5);
-        this.game.buttonoversfx.defaultVolume = 0.5;
+        this.game.buttonoversfx = this.add.audio('buttonoversfx', 1);
+        this.game.buttonoversfx.defaultVolume = 1;
         this.game.onSfxStatusChange.add(this.game.defaultSfxStatusChangeHandler, this.game.buttonoversfx);
 
-        this.game.buttonselectsfx = this.add.audio('buttonselectsfx', 0.5);
-        this.game.buttonselectsfx.defaultVolume = 0.5;
+        this.game.buttonselectsfx = this.add.audio('buttonselectsfx', 1);
+        this.game.buttonselectsfx.defaultVolume = 1;
         this.game.onSfxStatusChange.add(this.game.defaultSfxStatusChangeHandler, this.game.buttonselectsfx);
     },
     loadCompleted: function(key) {
