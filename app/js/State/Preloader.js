@@ -15,7 +15,7 @@ State.Preloader = function(game) {};
 
 State.Preloader.prototype = {
     preload: function() {
-        this.load.onFileError.addOnce(this.fileError, this);
+        this.load.onFileError.add(this.fileError, this);
 
         //Loader Error Image
         this.load.image('loaderError','assets/img/loaderError.png');
@@ -91,7 +91,9 @@ State.Preloader.prototype = {
             if (key === 'loaderError') {
                 this.errorError = true;
             } else {
-                this.loadingImage.destroy();
+                if (this.loadingImage) {
+                    this.loadingImage.destroy();
+                }
 
                 this.game.stage.backgroundColor = 0xAAAAAA;
 
