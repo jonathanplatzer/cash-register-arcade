@@ -121,6 +121,24 @@
             "key": "jumpSound",
             "urls": ["assets/sfx/jump.ogg"],
             "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "marmelade",
+            "url": "assets/img/marmelade.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "kuerbis",
+            "url": "assets/img/kuerbis.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "korb",
+            "url": "assets/img/korb.png",
+            "overwrite": false
         }
     ],
     "highscore": [
