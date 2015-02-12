@@ -249,8 +249,9 @@ State.Play.prototype = {
             }
             
             //Speed Increase Test
-            this.OBSTACLE_SPEED = this.OBSTACLE_SPEED * 1.0002;
-            this.obstacleTimer.delay = this.obstacleTimer.delay / 1.0002;
+            this.OBSTACLE_SPEED *= 1.0002;
+            this.obstacleTimer.delay /= 1.0002;
+            this.tweenhand.timeScale *= 1.0002;
         }
         else { //If gameover is true stop some gameplay routines
             this.player.animations.paused = true;

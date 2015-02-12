@@ -53,20 +53,24 @@ State.Highscore.prototype = {
         this.headerGraphics.endFill();
         
         //Highscore Header-Text
-		this.highscoreHeaderRank = this.game.add.text(240, 43, "Platz", this.style);
-		this.highscoreHeaderPlayer = this.game.add.text(380, 43, "Spielername", this.style);
-		this.highscoreHeaderScore = this.game.add.text(1000, 43, "Punkte", this.style);
-		
-		//Get highscore data
-		var xmlHttp = null;
-		xmlHttp = new XMLHttpRequest();
-		xmlHttp.open( "GET", this.apiurl, false );
-		xmlHttp.send( null );
-		this.highscoreData = JSON.parse(xmlHttp.responseText);
-		this.highscoreData.sort(this.compare);
-		
-		this.drawHighscore();
-	},
+        this.highscoreHeaderRank = this.game.add.text(240, 43, "Platz", this.style);
+        this.highscoreHeaderPlayer = this.game.add.text(380, 43, "Spielername", this.style);
+        this.highscoreHeaderScore = this.game.add.text(1000, 43, "Punkte", this.style);
+        
+        //Get highscore data
+        var xmlHttp = null;
+        xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", this.apiurl, true );
+        xmlHttp.send( null );
+
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                this.highscoreData = JSON.parse(xmlHttp.responseText);
+                this.highscoreData.sort(this.compare);
+                this.drawHighscore();
+            }
+        };
+    },
     update: function() {
     },
 	
